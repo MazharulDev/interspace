@@ -33,7 +33,7 @@ const Navbar = () => {
   ];
   return (
     <nav className="navbar container">
-      <Link className="logo" href="/">
+      <Link style={{ fontWeight: "bold" }} className="logo" href="/">
         Interspace
       </Link>
       <input type="checkbox" id="toggler" />
