@@ -6,7 +6,7 @@ const ServiceCard = ({ img, price, mb, text1, text2, text3 }: any) => {
     <Card
       hoverable
       style={{
-        width: 340,
+        width: 300,
         background: "linear-gradient(to right, #173985,#556485)",
         color: "white",
       }}

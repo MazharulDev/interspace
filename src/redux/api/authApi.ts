@@ -14,11 +14,19 @@ export const authApi = baseApi.injectEndpoints({
     }),
     userSignup: build.mutation({
       query: (userData) => ({
-        url: `/user/create-user`,
+        url: `/all-users/create-user`,
         method: "POST",
         data: userData,
       }),
       invalidatesTags: [tagTypes.user],
+    }),
+    createAdmin: build.mutation({
+      query: (adminData) => ({
+        url: `/all-users/create-admin`,
+        method: "POST",
+        data: adminData,
+      }),
+      invalidatesTags: [tagTypes.admin],
     }),
   }),
 });

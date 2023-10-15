@@ -1,7 +1,7 @@
 "use client";
 
-import Header from "@/components/ui/Header";
 import Navbar from "@/components/ui/Navbar";
+import Providers from "@/lib/Providers";
 import { isLoggedIn } from "@/services/auth.service";
 import { Layout, Row, Space, Spin } from "antd";
 import { useRouter } from "next/navigation";
@@ -36,7 +36,6 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <Layout>
       <Navbar />
-
       {children}
     </Layout>
   );
