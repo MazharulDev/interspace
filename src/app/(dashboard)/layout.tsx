@@ -1,12 +1,14 @@
 "use client";
 
-import Navbar from "@/components/ui/Navbar";
+import Contents from "@/components/ui/Contents";
+import Sidebar from "@/components/ui/Sidebar";
+
 import { isLoggedIn } from "@/services/auth.service";
 import { Layout, Row, Space, Spin } from "antd";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const RootLayout = ({ children }: { children: React.ReactNode }) => {
+const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const userLoggedIn = isLoggedIn();
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -33,11 +35,11 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
     );
   }
   return (
-    <Layout>
-      <Navbar />
-      {children}
+    <Layout hasSider>
+      <Sidebar />
+      <Contents>{children}</Contents>
     </Layout>
   );
 };
 
-export default RootLayout;
+export default DashboardLayout;

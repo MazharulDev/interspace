@@ -13,7 +13,7 @@ const Header = () => {
     removeUserInfo(authkey);
     router.push("/login");
   };
-  const { userId } = getUserInfo() as any;
+  const { role } = getUserInfo() as any;
   const items: MenuProps["items"] = [
     {
       key: "0",
@@ -42,7 +42,7 @@ const Header = () => {
             margin: "0px 5px",
           }}
         >
-          {userId}
+          {role}
         </p>
         <Dropdown menu={{ items }}>
           <a>

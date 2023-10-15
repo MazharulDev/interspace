@@ -1,11 +1,11 @@
 "use client";
 import { useUserQuery } from "@/redux/api/userApi";
 import { getUserInfo } from "@/services/auth.service";
-import { Avatar, Button, Row, Space } from "antd";
+import { Avatar, Row, Space } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import BreadCrumb from "../ui/Breadcrumb";
 
-const Profile = () => {
+const SuperAdminProfile = () => {
   const { userId, role } = getUserInfo() as any;
   const { data } = useUserQuery(userId);
   return (
@@ -32,20 +32,14 @@ const Profile = () => {
         </Space>
       </Row>
       <div style={{ textAlign: "center", margin: "2rem 0" }}>
-        {role === "user" ? (
-          <h2>{data?.user?.name}</h2>
-        ) : (
-          <h2>{data?.admin?.name}</h2>
-        )}
+        <h2>{data?.name}</h2>
+
         <h3 style={{ margin: "1rem 0" }}>{userId}</h3>
-        {role === "user" ? (
-          <p>Phone Number: {data?.user?.phoneNumber}</p>
-        ) : (
-          <p>Phone Number: {data?.admin?.phoneNumber}</p>
-        )}
+
+        <p>Phone Number: {data?.phoneNumber}</p>
       </div>
     </>
   );
 };
 
-export default Profile;
+export default SuperAdminProfile;

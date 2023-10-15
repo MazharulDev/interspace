@@ -37,7 +37,20 @@ export const userApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.user],
     }),
+    updateSuperAdmin: build.mutation({
+      query: (data) => ({
+        url: `/all-users/${data.email}`,
+        method: "PATCH",
+        data: data.body,
+      }),
+      invalidatesTags: [tagTypes.admin],
+    }),
   }),
 });
 
-export const { useUsersQuery, useUserQuery, useUpdateUserMutation } = userApi;
+export const {
+  useUsersQuery,
+  useUserQuery,
+  useUpdateUserMutation,
+  useUpdateSuperAdminMutation,
+} = userApi;
