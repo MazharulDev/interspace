@@ -5,7 +5,7 @@ import { baseApi } from "./baseApi";
 const USER_URL = "/users";
 export const userApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    // get all students
+    // get all admin
     users: build.query({
       query: (arg: Record<string, any>) => {
         return {
@@ -16,7 +16,7 @@ export const userApi = baseApi.injectEndpoints({
       },
       transformResponse: (response: IUsers[], meta: IMeta) => {
         return {
-          students: response,
+          users: response,
           meta,
         };
       },
@@ -27,9 +27,17 @@ export const userApi = baseApi.injectEndpoints({
         url: `/all-users/${email}`,
         method: "GET",
       }),
-      providesTags: [tagTypes.user],
+      providesTags: [tagTypes.user, tagTypes.admin],
+    }),
+    updateUser: build.mutation({
+      query: (data) => ({
+        url: `${USER_URL}/${data.email}`,
+        method: "PATCH",
+        data: data.body,
+      }),
+      invalidatesTags: [tagTypes.user],
     }),
   }),
 });
 
-export const { useUsersQuery, useUserQuery } = userApi;
+export const { useUsersQuery, useUserQuery, useUpdateUserMutation } = userApi;

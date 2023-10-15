@@ -1,24 +1,35 @@
 "use client";
 import { useUserQuery } from "@/redux/api/userApi";
 import { getUserInfo } from "@/services/auth.service";
-import { Avatar, Row, Space } from "antd";
+import { Avatar, Button, Row, Space } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import BreadCrumb from "../ui/Breadcrumb";
+import Link from "next/link";
 
 const Profile = () => {
   const { userId, role } = getUserInfo() as any;
   const { data } = useUserQuery(userId);
-  console.log(data);
   return (
     <>
-      <BreadCrumb
-        items={[
-          {
-            label: `profile-${role}`,
-            link: `/profile`,
-          },
-        ]}
-      />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <BreadCrumb
+          items={[
+            {
+              label: `profile-${role}`,
+              link: `/profile`,
+            },
+          ]}
+        />
+        <Link href={`/profile/${role}-edit`}>
+          <Button style={{ margin: "10px 20px" }}>Edit</Button>
+        </Link>
+      </div>
       <Row justify="center" align="middle" style={{ marginTop: "2rem" }}>
         <Space wrap size={16}>
           <Avatar size={64} icon={<UserOutlined />} />
