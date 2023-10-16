@@ -31,7 +31,7 @@ const AdminCreatePage = () => {
       <BreadCrumb
         items={[
           {
-            label: "super_admin",
+            label: `${role}`,
             link: `${role}`,
           },
           {

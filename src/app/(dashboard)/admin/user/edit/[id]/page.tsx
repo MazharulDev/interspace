@@ -2,25 +2,37 @@
 import Form from "@/components/forms/Form";
 import FormInput from "@/components/forms/FormInput";
 import BreadCrumb from "@/components/ui/Breadcrumb";
-import { useUserSignupMutation } from "@/redux/api/authApi";
-import { userSchema } from "@/schemas/user";
+import {
+  useUpdateUserByIdMutation,
+  useUserByIdQuery,
+} from "@/redux/api/userApi";
 
 import { getUserInfo } from "@/services/auth.service";
-import { yupResolver } from "@hookform/resolvers/yup";
 
 import { Button, Col, Row, message } from "antd";
 import { useRouter } from "next/navigation";
 
-const UserCreatePage = () => {
-  const { role } = getUserInfo() as any;
-  const router = useRouter();
-  const [userSignup] = useUserSignupMutation();
+type IDProps = {
+  params: any;
+};
 
+const UserUpdatePage = ({ params }: IDProps) => {
+  const { role } = getUserInfo() as any;
+  const id = params?.id;
+  const { data } = useUserByIdQuery(id);
+
+  const [updateAdminById] = useUpdateUserByIdMutation();
+  const router = useRouter();
+
+  const defaultValue = {
+    name: data?.name || "",
+    phoneNumber: data?.phoneNumber || "",
+  };
   const onSubmit = async (values: any) => {
     try {
-      const res = await userSignup(values).unwrap();
+      const res = await updateAdminById({ id, body: values }).unwrap();
       if (res?._id) {
-        message.success("User created successfully!");
+        message.success("User Updated Successfully");
         router.push(`/${role}/user`);
       }
     } catch (err: any) {
@@ -40,14 +52,14 @@ const UserCreatePage = () => {
             link: `/${role}/user`,
           },
           {
-            label: "create",
-            link: `/${role}/user/create`,
+            label: "update",
+            link: `/${role}/user/edit`,
           },
         ]}
       />
 
-      <h1>Create User</h1>
-      <Form submitHandler={onSubmit} resolver={yupResolver(userSchema)}>
+      <h1>Update User</h1>
+      <Form submitHandler={onSubmit} defaultValues={defaultValue}>
         <div
           style={{
             border: "1px solid #d9d9d9",
@@ -77,36 +89,10 @@ const UserCreatePage = () => {
                 name="name"
                 size="large"
                 label="Full Name"
+                defaultValue={data?.name}
               />
             </Col>
-            <Col
-              className="gutter-row"
-              span={12}
-              style={{
-                marginBottom: "10px",
-              }}
-            >
-              <FormInput
-                type="email"
-                name="email"
-                size="large"
-                label="Email address"
-              />
-            </Col>
-            <Col
-              className="gutter-row"
-              span={12}
-              style={{
-                marginBottom: "10px",
-              }}
-            >
-              <FormInput
-                type="password"
-                name="password"
-                size="large"
-                label="Password"
-              />
-            </Col>
+
             <Col
               className="gutter-row"
               span={12}
@@ -119,17 +105,18 @@ const UserCreatePage = () => {
                 name="phoneNumber"
                 size="large"
                 label="Contact No."
+                defaultValue={data?.phoneNumber}
               />
             </Col>
           </Row>
         </div>
 
         <Button type="primary" htmlType="submit">
-          create
+          update
         </Button>
       </Form>
     </div>
   );
 };
 
-export default UserCreatePage;
+export default UserUpdatePage;

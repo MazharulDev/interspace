@@ -60,6 +60,13 @@ export const userApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.user],
     }),
+    userById: build.query({
+      query: (id: string | string[] | undefined) => ({
+        url: `${USER_URL}/${id}`,
+        method: "GET",
+      }),
+      providesTags: [tagTypes.user],
+    }),
   }),
 });
 
@@ -70,4 +77,5 @@ export const {
   useUpdateSuperAdminMutation,
   useUpdateUserByIdMutation,
   useDeleteUserMutation,
+  useUserByIdQuery,
 } = userApi;

@@ -43,7 +43,7 @@ const AdminUpdatePage = ({ params }: IDProps) => {
       <BreadCrumb
         items={[
           {
-            label: "super_admin",
+            label: `${role}`,
             link: `/${role}`,
           },
           {

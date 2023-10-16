@@ -1,6 +1,6 @@
 "use client";
 import BreadCrumb from "@/components/ui/Breadcrumb";
-import { useAdminQuery } from "@/redux/api/adminApi";
+import { useUserByIdQuery } from "@/redux/api/userApi";
 import { getUserInfo } from "@/services/auth.service";
 import { UserOutlined } from "@ant-design/icons";
 import { Avatar, Row, Space } from "antd";
@@ -9,11 +9,10 @@ type IDProps = {
   params: any;
 };
 
-const AdminViewPage = ({ params }: IDProps) => {
+const UserViewPage = ({ params }: IDProps) => {
   const { role } = getUserInfo() as any;
   const id = params?.id;
-  const { data } = useAdminQuery(id);
-  console.log(data);
+  const { data } = useUserByIdQuery(id);
   return (
     <>
       <div
@@ -30,12 +29,12 @@ const AdminViewPage = ({ params }: IDProps) => {
               link: `/${role}`,
             },
             {
-              label: "admins",
-              link: `/${role}/admin`,
+              label: "user",
+              link: `/${role}/user`,
             },
             {
               label: "view",
-              link: `/${role}/admin/view`,
+              link: `/${role}/user/view`,
             },
           ]}
         />
@@ -56,4 +55,4 @@ const AdminViewPage = ({ params }: IDProps) => {
   );
 };
 
-export default AdminViewPage;
+export default UserViewPage;
