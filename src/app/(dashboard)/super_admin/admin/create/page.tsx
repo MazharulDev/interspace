@@ -4,12 +4,14 @@ import FormInput from "@/components/forms/FormInput";
 import BreadCrumb from "@/components/ui/Breadcrumb";
 import { useCreateAdminMutation } from "@/redux/api/authApi";
 import { adminSchema } from "@/schemas/admin";
+import { getUserInfo } from "@/services/auth.service";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { Button, Col, Row, message } from "antd";
 import { useRouter } from "next/navigation";
 
 const AdminCreatePage = () => {
+  const { role } = getUserInfo() as any;
   const router = useRouter();
   const [createAdmin] = useCreateAdminMutation();
 
@@ -30,15 +32,15 @@ const AdminCreatePage = () => {
         items={[
           {
             label: "super_admin",
-            link: "/super_admin",
+            link: `${role}`,
           },
           {
             label: "admins",
-            link: "/super_admin/admin",
+            link: `/${role}/admin`,
           },
           {
             label: "create",
-            link: "/super_admin/admin/create",
+            link: `/${role}/admin/create`,
           },
         ]}
       />

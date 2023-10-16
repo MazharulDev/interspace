@@ -15,9 +15,10 @@ import { useAdminsQuery, useDeleteAdminMutation } from "@/redux/api/adminApi";
 import ISTable from "@/components/ui/ISTable";
 import BreadCrumb from "@/components/ui/Breadcrumb";
 import Actionbar from "@/components/ui/ActionBar";
+import { useDeleteUserMutation, useUsersQuery } from "@/redux/api/userApi";
 import { getUserInfo } from "@/services/auth.service";
 
-const AdminPage = () => {
+const UserPage = () => {
   const { role } = getUserInfo() as any;
   const query: Record<string, any> = {};
 
@@ -40,17 +41,17 @@ const AdminPage = () => {
   if (!!debouncedSearchTerm) {
     query["searchTerm"] = debouncedSearchTerm;
   }
-  const { data, isLoading } = useAdminsQuery({ ...query });
-  const [deleteAdmin] = useDeleteAdminMutation();
+  const { data, isLoading } = useUsersQuery({ ...query });
+  const [deleteUser] = useDeleteUserMutation();
   const handleDelete = async (id: string) => {
-    const res: any = await deleteAdmin(id).unwrap();
+    const res: any = await deleteUser(id).unwrap();
 
     if (res?._id) {
-      message.success("Admin Deleted successfully");
+      message.success("User Deleted successfully");
     }
   };
 
-  const admins = data?.admins;
+  const admins = data?.users;
   const meta = data?.meta;
 
   const columns = [
@@ -81,12 +82,12 @@ const AdminPage = () => {
       render: function (data: any) {
         return (
           <>
-            <Link href={`/super_admin/admin/view/${data}`}>
-              <Button type="primary">
+            <Link href={`/super_admin/user/view/${data}`}>
+              <Button onClick={() => console.log(data)} type="primary">
                 <EyeOutlined />
               </Button>
             </Link>
-            <Link href={`/super_admin/admin/edit/${data}`}>
+            <Link href={`/super_admin/user/edit/${data}`}>
               <Button
                 style={{
                   margin: "0px 5px",
@@ -129,12 +130,12 @@ const AdminPage = () => {
             link: `/${role}`,
           },
           {
-            label: "admins",
-            link: `/${role}/admin`,
+            label: "user",
+            link: `/${role}/user`,
           },
         ]}
       />
-      <Actionbar title="Admin List">
+      <Actionbar title="User List">
         <Input
           size="large"
           placeholder="Search"
@@ -144,8 +145,8 @@ const AdminPage = () => {
           }}
         />
         <div>
-          <Link href="/super_admin/admin/create">
-            <Button type="primary">Create Admin</Button>
+          <Link href="/super_admin/user/create">
+            <Button type="primary">Create User</Button>
           </Link>
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
             <Button
@@ -174,4 +175,4 @@ const AdminPage = () => {
   );
 };
 
-export default AdminPage;
+export default UserPage;

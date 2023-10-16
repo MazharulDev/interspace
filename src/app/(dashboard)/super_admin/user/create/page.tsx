@@ -2,37 +2,26 @@
 import Form from "@/components/forms/Form";
 import FormInput from "@/components/forms/FormInput";
 import BreadCrumb from "@/components/ui/Breadcrumb";
-import {
-  useAdminQuery,
-  useUpdateAdminByIdMutation,
-} from "@/redux/api/adminApi";
+import { useUserSignupMutation } from "@/redux/api/authApi";
+import { userSchema } from "@/schemas/user";
+
 import { getUserInfo } from "@/services/auth.service";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import { Button, Col, Row, message } from "antd";
 import { useRouter } from "next/navigation";
 
-type IDProps = {
-  params: any;
-};
-
-const AdminUpdatePage = ({ params }: IDProps) => {
+const UserCreatePage = () => {
   const { role } = getUserInfo() as any;
-  const id = params?.id;
-  const { data } = useAdminQuery(id);
-
-  const [updateAdminById] = useUpdateAdminByIdMutation();
   const router = useRouter();
+  const [userSignup] = useUserSignupMutation();
 
-  const defaultValue = {
-    name: data?.name || "",
-    phoneNumber: data?.phoneNumber || "",
-  };
   const onSubmit = async (values: any) => {
     try {
-      const res = await updateAdminById({ id, body: values }).unwrap();
+      const res = await userSignup(values).unwrap();
       if (res?._id) {
-        message.success("Admin Updated Successfully");
-        router.push(`/${role}/admin`);
+        message.success("User created successfully!");
+        router.push(`/${role}/user`);
       }
     } catch (err: any) {
       console.error(err.message);
@@ -47,18 +36,18 @@ const AdminUpdatePage = ({ params }: IDProps) => {
             link: `/${role}`,
           },
           {
-            label: "admins",
-            link: `/${role}/admin`,
+            label: "user",
+            link: `/${role}/user`,
           },
           {
-            label: "update",
-            link: `/${role}/admin/edit`,
+            label: "create",
+            link: `/${role}/user/create`,
           },
         ]}
       />
 
-      <h1>Update Admin</h1>
-      <Form submitHandler={onSubmit} defaultValues={defaultValue}>
+      <h1>Create User</h1>
+      <Form submitHandler={onSubmit} resolver={yupResolver(userSchema)}>
         <div
           style={{
             border: "1px solid #d9d9d9",
@@ -73,7 +62,7 @@ const AdminUpdatePage = ({ params }: IDProps) => {
               marginBottom: "10px",
             }}
           >
-            Admin Information
+            User Information
           </p>
           <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
             <Col
@@ -88,10 +77,36 @@ const AdminUpdatePage = ({ params }: IDProps) => {
                 name="name"
                 size="large"
                 label="Full Name"
-                defaultValue={data?.name}
               />
             </Col>
-
+            <Col
+              className="gutter-row"
+              span={12}
+              style={{
+                marginBottom: "10px",
+              }}
+            >
+              <FormInput
+                type="email"
+                name="email"
+                size="large"
+                label="Email address"
+              />
+            </Col>
+            <Col
+              className="gutter-row"
+              span={12}
+              style={{
+                marginBottom: "10px",
+              }}
+            >
+              <FormInput
+                type="password"
+                name="password"
+                size="large"
+                label="Password"
+              />
+            </Col>
             <Col
               className="gutter-row"
               span={12}
@@ -104,18 +119,17 @@ const AdminUpdatePage = ({ params }: IDProps) => {
                 name="phoneNumber"
                 size="large"
                 label="Contact No."
-                defaultValue={data?.phoneNumber}
               />
             </Col>
           </Row>
         </div>
 
         <Button type="primary" htmlType="submit">
-          update
+          create
         </Button>
       </Form>
     </div>
   );
 };
 
-export default AdminUpdatePage;
+export default UserCreatePage;
