@@ -2,22 +2,34 @@
 import Form from "@/components/forms/Form";
 import FormInput from "@/components/forms/FormInput";
 import BreadCrumb from "@/components/ui/Breadcrumb";
-import { useCreateAdminMutation } from "@/redux/api/authApi";
-import { adminSchema } from "@/schemas/admin";
-import { yupResolver } from "@hookform/resolvers/yup";
+import {
+  useAdminQuery,
+  useUpdateAdminByIdMutation,
+} from "@/redux/api/adminApi";
 
 import { Button, Col, Row, message } from "antd";
 import { useRouter } from "next/navigation";
 
-const AdminCreatePage = () => {
-  const router = useRouter();
-  const [createAdmin] = useCreateAdminMutation();
+type IDProps = {
+  params: any;
+};
 
+const AdminUpdatePage = ({ params }: IDProps) => {
+  const id = params?.id;
+  const { data } = useAdminQuery(id);
+
+  const [updateAdminById] = useUpdateAdminByIdMutation();
+  const router = useRouter();
+
+  const defaultValue = {
+    name: data?.name || "",
+    phoneNumber: data?.phoneNumber || "",
+  };
   const onSubmit = async (values: any) => {
     try {
-      const res = await createAdmin(values).unwrap();
+      const res = await updateAdminById({ id, body: values }).unwrap();
       if (res?._id) {
-        message.success("Admin created successfully!");
+        message.success("Admin Updated Successfully");
         router.push("/super_admin/admin");
       }
     } catch (err: any) {
@@ -37,14 +49,14 @@ const AdminCreatePage = () => {
             link: "/super_admin/admin",
           },
           {
-            label: "create",
-            link: "/super_admin/admin/create",
+            label: "update",
+            link: "/super_admin/admin/edit",
           },
         ]}
       />
 
-      <h1>Create Admin</h1>
-      <Form submitHandler={onSubmit} resolver={yupResolver(adminSchema)}>
+      <h1>Update Admin</h1>
+      <Form submitHandler={onSubmit} defaultValues={defaultValue}>
         <div
           style={{
             border: "1px solid #d9d9d9",
@@ -74,36 +86,10 @@ const AdminCreatePage = () => {
                 name="name"
                 size="large"
                 label="Full Name"
+                defaultValue={data?.name}
               />
             </Col>
-            <Col
-              className="gutter-row"
-              span={12}
-              style={{
-                marginBottom: "10px",
-              }}
-            >
-              <FormInput
-                type="email"
-                name="email"
-                size="large"
-                label="Email address"
-              />
-            </Col>
-            <Col
-              className="gutter-row"
-              span={12}
-              style={{
-                marginBottom: "10px",
-              }}
-            >
-              <FormInput
-                type="password"
-                name="password"
-                size="large"
-                label="Password"
-              />
-            </Col>
+
             <Col
               className="gutter-row"
               span={12}
@@ -116,17 +102,18 @@ const AdminCreatePage = () => {
                 name="phoneNumber"
                 size="large"
                 label="Contact No."
+                defaultValue={data?.phoneNumber}
               />
             </Col>
           </Row>
         </div>
 
         <Button type="primary" htmlType="submit">
-          create
+          update
         </Button>
       </Form>
     </div>
   );
 };
 
-export default AdminCreatePage;
+export default AdminUpdatePage;
