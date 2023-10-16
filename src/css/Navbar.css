@@ -11,7 +11,7 @@
   align-items: center;
   justify-content: space-between;
   /* background-color: #e5e9ec; */
-  background: #fff;
+  background: #004658;
   padding: 20px;
   /* box-shadow: 0 0 5px #000; */
   z-index: 1;
@@ -23,6 +23,7 @@
 .logo {
   margin-right: 50px;
   font-size: x-large;
+  color: #fff;
 }
 
 .list {
@@ -48,7 +49,6 @@
 #toggler,
 .navbar label {
   display: none;
-  color: #fff;
 }
 
 @media (max-width: 600px) {
@@ -69,5 +69,6 @@
   }
   #toggler:checked ~ .menu {
     max-height: 100%;
+    transition: all 2s;
   }
 }

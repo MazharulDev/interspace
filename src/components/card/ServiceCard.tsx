@@ -1,7 +1,6 @@
 import { Button, Card, Divider } from "antd";
-import Image from "next/image";
 
-const ServiceCard = ({ img, price, mb, text1, text2, text3 }: any) => {
+const ServiceCard = ({ packageName, price, mb, text1, text2, text3 }: any) => {
   return (
     <Card
       hoverable
@@ -11,7 +10,7 @@ const ServiceCard = ({ img, price, mb, text1, text2, text3 }: any) => {
         color: "white",
       }}
     >
-      <Image src={img} width={100} alt="Text image saver" />
+      <h2 style={{ fontFamily: "Kalam", fontSize: "3rem" }}>{packageName}</h2>
       <div
         style={{
           display: "flex",

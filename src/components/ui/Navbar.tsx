@@ -38,7 +38,7 @@ const Navbar = () => {
       </Link>
       <input type="checkbox" id="toggler" />
       <label htmlFor="toggler">
-        <i className="ri-menu-line">
+        <i className="ri-menu-line" style={{ background: "white" }}>
           {" "}
           <MenuOutlined />
         </i>
@@ -46,19 +46,29 @@ const Navbar = () => {
       <div className="menu">
         <ul className="list">
           <li>
-            <Link href="#">About Us</Link>
+            <Link style={{ color: "white" }} href="#">
+              About Us
+            </Link>
           </li>
           <li>
-            <Link href="#">Services</Link>
+            <Link style={{ color: "white" }} href="#">
+              Services
+            </Link>
           </li>
           <li>
-            <Link href="#">Pricing</Link>
+            <Link style={{ color: "white" }} href="#">
+              Pricing
+            </Link>
           </li>
           <li>
-            <Link href="#">Coverage Area</Link>
+            <Link style={{ color: "white" }} href="#">
+              Coverage Area
+            </Link>
           </li>
           <li>
-            <Link href="#">Contact</Link>
+            <Link style={{ color: "white" }} href="#">
+              Contact
+            </Link>
           </li>
           <li>
             <Row>

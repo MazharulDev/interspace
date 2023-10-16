@@ -1,7 +1,4 @@
 import { Col, Row } from "antd";
-import SaverTextImg from "@/assets/saverText.png";
-import familyTextImg from "@/assets/familyText.png";
-import gamerTextImg from "@/assets/gamerText.png";
 import ServiceCard from "../card/ServiceCard";
 
 const AvilableService = () => {
@@ -18,7 +15,7 @@ const AvilableService = () => {
           <Col sm={12} md={16} lg={6}>
             <div>
               <ServiceCard
-                img={SaverTextImg}
+                packageName={"Saver"}
                 price={"14,99"}
                 mb={"25"}
                 text1={"Real IP"}
@@ -30,7 +27,7 @@ const AvilableService = () => {
           <Col sm={12} md={16} lg={6}>
             <div>
               <ServiceCard
-                img={familyTextImg}
+                packageName={"Family"}
                 price={"14,99"}
                 mb={"25"}
                 text1={"Real IP"}
@@ -42,7 +39,7 @@ const AvilableService = () => {
           <Col sm={12} md={16} lg={6}>
             <div>
               <ServiceCard
-                img={gamerTextImg}
+                packageName={"Gamer"}
                 price={"14,99"}
                 mb={"25"}
                 text1={"Real IP"}

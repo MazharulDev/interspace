@@ -9,9 +9,11 @@ const Banner = () => {
       align="middle"
       style={{
         minHeight: "100vh",
+        backgroundColor: "#335963",
+        color: "white",
       }}
     >
-      <Col sm={12} md={8} lg={11}>
+      <Col sm={12} md={8} lg={11} style={{ padding: "0 15px" }}>
         <h1
           style={{
             margin: "15px 0px",

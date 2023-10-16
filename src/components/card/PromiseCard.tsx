@@ -13,7 +13,7 @@ const PromiseCard = ({ img, title, text1, text2, text3, text4 }: any) => {
           <div
             style={{
               display: "flex",
-
+              fontSize: "1rem",
               gap: "5px",
             }}
           >
@@ -23,19 +23,33 @@ const PromiseCard = ({ img, title, text1, text2, text3, text4 }: any) => {
         </div>
 
         <div>
-          <div style={{ display: "flex", gap: "5px", margin: "5px 0" }}>
+          <div
+            style={{
+              display: "flex",
+              gap: "5px",
+              margin: "5px 0",
+              fontSize: "1rem",
+            }}
+          >
             <CheckOutlined style={{ color: "green" }} />
             <p>{text2}</p>
           </div>
         </div>
         <div>
-          <div style={{ display: "flex", gap: "5px" }}>
+          <div style={{ display: "flex", gap: "5px", fontSize: "1rem" }}>
             <CheckOutlined style={{ color: "green" }} />
             <p>{text3}</p>
           </div>
         </div>
         <div>
-          <div style={{ display: "flex", gap: "5px", margin: "5px 0" }}>
+          <div
+            style={{
+              display: "flex",
+              gap: "5px",
+              margin: "5px 0",
+              fontSize: "1rem",
+            }}
+          >
             <CheckOutlined style={{ color: "green" }} />
             <p>{text4}</p>
           </div>
