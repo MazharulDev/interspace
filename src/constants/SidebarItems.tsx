@@ -14,6 +14,10 @@ export const sidebarItems = (role: string) => {
       icon: <ProfileOutlined />,
       children: [
         {
+          label: <Link href={`/profile`}>Account Profile</Link>,
+          key: `/profile`,
+        },
+        {
           label: <Link href={`/profile/${role}-edit`}>Update Profile</Link>,
           key: `/${role}/profile`,
         },
@@ -21,16 +25,11 @@ export const sidebarItems = (role: string) => {
     },
   ];
   const commonAdminSidebarItems: MenuProps["items"] = [
-    {
-      label: <Link href={`/${role}/manage-students`}>Manage Students</Link>,
-      icon: <TableOutlined />,
-      key: `/${role}/manage-students`,
-    },
-    {
-      label: <Link href={`/${role}/manage-faculty`}>Manage Faculty</Link>,
-      icon: <TableOutlined />,
-      key: `/${role}/manage-faculty`,
-    },
+    // {
+    //   label: <Link href={`/${role}/manage-students`}>Manage Students</Link>,
+    //   icon: <TableOutlined />,
+    //   key: `/${role}/manage-students`,
+    // },
   ];
 
   const adminSidebarItems: MenuProps["items"] = [
