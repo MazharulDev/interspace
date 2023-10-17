@@ -96,7 +96,7 @@ const SignUp = () => {
             >
               <FormInput
                 name="password"
-                type="text"
+                type="password"
                 placeholder="********"
                 size="large"
                 label="Password"

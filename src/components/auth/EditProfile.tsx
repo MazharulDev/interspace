@@ -7,7 +7,13 @@ import FormInput from "../forms/FormInput";
 
 import Form from "../forms/Form";
 
-const EditProfile = ({ role, onSubmit, name, phoneNumber }: any) => {
+const EditProfile = ({
+  role,
+  onSubmit,
+  name,
+  phoneNumber,
+  defaultValue,
+}: any) => {
   return (
     <div>
       <BreadCrumb
@@ -34,7 +40,7 @@ const EditProfile = ({ role, onSubmit, name, phoneNumber }: any) => {
             margin: "2rem 0",
           }}
         >
-          <Form submitHandler={onSubmit}>
+          <Form submitHandler={onSubmit} defaultValues={defaultValue}>
             <div>
               <FormInput
                 name="name"
@@ -52,7 +58,7 @@ const EditProfile = ({ role, onSubmit, name, phoneNumber }: any) => {
             >
               <FormInput
                 name="phoneNumber"
-                type="number"
+                type="text"
                 placeholder="Type Phone number"
                 size="large"
                 label="Phone Number"

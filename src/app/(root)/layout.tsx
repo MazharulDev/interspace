@@ -12,9 +12,9 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    if (!userLoggedIn) {
-      router.push("/login");
-    }
+    // if (!userLoggedIn) {
+    //   router.push("/login");
+    // }
     setIsLoading(true);
   }, [router, userLoggedIn]);
   if (!isLoading) {

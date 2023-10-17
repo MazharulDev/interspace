@@ -17,6 +17,11 @@ const UserEditProfilePage = () => {
   const { data } = useUserQuery(userId);
   const [updateUser] = useUpdateUserMutation();
   const router = useRouter();
+  const defaultValue = {
+    name: data?.user?.name || "",
+    phoneNumber: data?.user?.phoneNumber || "",
+  };
+
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
     try {
       const res = await updateUser({ email: userId, body: data }).unwrap();
@@ -37,6 +42,7 @@ const UserEditProfilePage = () => {
         onSubmit={onSubmit}
         name={name}
         phoneNumber={phoneNumber}
+        defaultValue={defaultValue}
       />
     </div>
   );

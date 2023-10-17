@@ -1,7 +1,9 @@
 "use client";
 import Form from "@/components/forms/Form";
 import FormInput from "@/components/forms/FormInput";
+import FormSelectField from "@/components/forms/FormSelectField";
 import BreadCrumb from "@/components/ui/Breadcrumb";
+import { roleOptions } from "@/constants/global";
 import {
   useUpdateUserByIdMutation,
   useUserByIdQuery,
@@ -27,6 +29,8 @@ const UserUpdatePage = ({ params }: IDProps) => {
   const defaultValue = {
     name: data?.name || "",
     phoneNumber: data?.phoneNumber || "",
+    role: data?.role || "",
+    email: data?.email || "",
   };
   const onSubmit = async (values: any) => {
     try {
@@ -106,6 +110,37 @@ const UserUpdatePage = ({ params }: IDProps) => {
                 size="large"
                 label="Contact No."
                 defaultValue={data?.phoneNumber}
+              />
+            </Col>
+            <Col
+              className="gutter-row"
+              span={12}
+              style={{
+                marginBottom: "10px",
+              }}
+            >
+              <FormSelectField
+                size="large"
+                name="role"
+                options={roleOptions}
+                label="Role"
+                placeholder="Select"
+              />
+            </Col>
+            <Col
+              className="gutter-row"
+              span={12}
+              style={{
+                marginBottom: "10px",
+              }}
+            >
+              <FormInput
+                type="email"
+                name="email"
+                size="large"
+                label="Email (Not changed)"
+                value={data?.email}
+                disabledInput="true"
               />
             </Col>
           </Row>
