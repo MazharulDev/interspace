@@ -1,4 +1,5 @@
 import { Button, Card, Divider } from "antd";
+import { GiftOutlined } from "@ant-design/icons";
 
 const ServiceCard = ({ packageName, price, mb, text1, text2, text3 }: any) => {
   return (
@@ -28,9 +29,21 @@ const ServiceCard = ({ packageName, price, mb, text1, text2, text3 }: any) => {
         <p style={{ fontSize: "2rem", marginTop: "1rem" }}>Mbps</p>
       </div>
       <div>
-        <h3>{text1}</h3>
+        <h2>Exclusive Privileges</h2>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "start",
+            gap: "10px",
+            marginTop: "1rem",
+          }}
+        >
+          <GiftOutlined style={{ marginTop: "3px" }} />
+          <p>No Security Deposit Required (for any package)</p>
+        </div>
+        {/* <h3>{text1}</h3>
         <h3>{text2}</h3>
-        <h3>{text3}</h3>
+        <h3>{text3}</h3> */}
       </div>
       <Button style={{ margin: "2rem 0" }}>Get It Now</Button>
     </Card>

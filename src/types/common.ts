@@ -28,3 +28,10 @@ export type IUsers = {
   phoneNumber: string;
   password: string;
 };
+
+export type IService = {
+  _id: string;
+  title: string;
+  price: string;
+  speed: string;
+};
