@@ -29,18 +29,18 @@ const AdminUpdatePage = ({ params }: IDProps) => {
     name: data?.name || "",
     phoneNumber: data?.phoneNumber || "",
     role: data?.role || "",
+    email: data?.email || "",
   };
   const onSubmit = async (values: any) => {
-    console.log(values);
-    // try {
-    //   const res = await updateAdminById({ id, body: values }).unwrap();
-    //   if (res?._id) {
-    //     message.success("Admin Updated Successfully");
-    //     router.push(`/${role}/admin`);
-    //   }
-    // } catch (err: any) {
-    //   console.error(err.message);
-    // }
+    try {
+      const res = await updateAdminById({ id, body: values }).unwrap();
+      if (res?._id) {
+        message.success("Admin Updated Successfully");
+        router.push(`/${role}/admin`);
+      }
+    } catch (err: any) {
+      console.error(err.message);
+    }
   };
   return (
     <div>
@@ -124,6 +124,22 @@ const AdminUpdatePage = ({ params }: IDProps) => {
                 options={roleOptions}
                 label="Role"
                 placeholder="Select"
+              />
+            </Col>
+            <Col
+              className="gutter-row"
+              span={12}
+              style={{
+                marginBottom: "10px",
+              }}
+            >
+              <FormInput
+                type="email"
+                name="email"
+                size="large"
+                label="Email (Not changed)"
+                value={data?.email}
+                disabledInput="true"
               />
             </Col>
           </Row>

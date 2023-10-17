@@ -25,11 +25,11 @@ export const sidebarItems = (role: string) => {
     },
   ];
   const commonAdminSidebarItems: MenuProps["items"] = [
-    {
-      label: <Link href={`/${role}/user`}>Manage User</Link>,
-      icon: <TableOutlined />,
-      key: `/${role}/user`,
-    },
+    // {
+    //   label: <Link href={`/${role}/user`}>Manage User</Link>,
+    //   icon: <TableOutlined />,
+    //   key: `/${role}/user`,
+    // },
   ];
 
   const adminSidebarItems: MenuProps["items"] = [
