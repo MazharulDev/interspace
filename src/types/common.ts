@@ -35,3 +35,13 @@ export type IService = {
   price: string;
   speed: string;
 };
+
+export type IBooking = {
+  _id: string;
+  name: string;
+  email: string;
+  status: string;
+  phoneNumber: string;
+  address: string;
+  packageName: string;
+};

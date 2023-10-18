@@ -3,6 +3,7 @@ import {
   ProfileOutlined,
   TableOutlined,
   WifiOutlined,
+  CarryOutOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
 import { USER_ROLE } from "./role";
@@ -22,6 +23,11 @@ export const sidebarItems = (role: string) => {
           key: `/${role}/profile`,
         },
       ],
+    },
+    {
+      label: <Link href={`/${role}/booking`}>My booking connection</Link>,
+      icon: <CarryOutOutlined />,
+      key: `/${role}/booking`,
     },
   ];
   const commonAdminSidebarItems: MenuProps["items"] = [

@@ -35,14 +35,11 @@ const BookingPage = ({ params }: IDProps) => {
     packageName: packageData?.title || "",
   };
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
-    try {
-      const res = await createBook({ ...data }).unwrap();
-      if (res?._id) {
-        // router.push("/login");
-        message.success("booking successfully");
-      }
-    } catch (error) {
-      console.log(error);
+    const res = await createBook({ ...data }).unwrap();
+    if (res?._id) {
+      message.success("Booking successfully");
+    } else {
+      message.error("Already booking our connection");
     }
   };
   return (
