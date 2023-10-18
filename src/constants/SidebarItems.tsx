@@ -4,6 +4,7 @@ import {
   TableOutlined,
   WifiOutlined,
   CarryOutOutlined,
+  FormOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
 import { USER_ROLE } from "./role";
@@ -50,6 +51,11 @@ export const sidebarItems = (role: string) => {
       label: <Link href={`/${role}/services`}>Services</Link>,
       icon: <WifiOutlined />,
       key: `/${role}/services`,
+    },
+    {
+      label: <Link href={`/${role}/manage-booking`}>Manage Booking</Link>,
+      icon: <FormOutlined />,
+      key: `/${role}/manage-booking`,
     },
   ];
 
