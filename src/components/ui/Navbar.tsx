@@ -13,24 +13,6 @@ const Navbar = () => {
     router.push("/login");
   };
   const { userId } = getUserInfo() as any;
-  const items: MenuProps["items"] = [
-    {
-      key: "0",
-      label: <Link href="/profile">Profile</Link>,
-    },
-    {
-      key: "1",
-      label: <Link href="/profile">My Order</Link>,
-    },
-    {
-      key: "2",
-      label: (
-        <Button onClick={logOut} type="text" danger>
-          Logout
-        </Button>
-      ),
-    },
-  ];
   return (
     <nav className="navbar container">
       <Link style={{ fontWeight: "bold" }} className="logo" href="/">
@@ -65,22 +47,26 @@ const Navbar = () => {
               Coverage Area
             </Link>
           </li>
-          <li>
-            <Link style={{ color: "white" }} href="#">
-              Contact
-            </Link>
-          </li>
-          <li>
-            <Row>
-              <Dropdown menu={{ items }}>
-                <a>
-                  <Space wrap size={16}>
-                    <Avatar size="large" icon={<UserOutlined />} />
-                  </Space>
-                </a>
-              </Dropdown>
-            </Row>
-          </li>
+          {userId && (
+            <li>
+              <Link style={{ color: "white" }} href="/profile">
+                Dashboard
+              </Link>
+            </li>
+          )}
+          {userId ? (
+            <li>
+              <Button danger onClick={logOut}>
+                Logout
+              </Button>
+            </li>
+          ) : (
+            <li>
+              <Link href="/login">
+                <Button>Login</Button>
+              </Link>
+            </li>
+          )}
         </ul>
       </div>
     </nav>

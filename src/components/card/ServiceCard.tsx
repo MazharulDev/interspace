@@ -1,5 +1,6 @@
 import { Button, Card, Divider } from "antd";
 import { GiftOutlined } from "@ant-design/icons";
+import Link from "next/link";
 
 const ServiceCard = ({ packageName, price, mb, id }: any) => {
   const handleGetService = (id: string) => {
@@ -48,9 +49,9 @@ const ServiceCard = ({ packageName, price, mb, id }: any) => {
           <p>No Security Deposit Required (for any package)</p>
         </div>
       </div>
-      <Button onClick={() => handleGetService(id)} style={{ margin: "2rem 0" }}>
-        Get It Now
-      </Button>
+      <Link href={`/booking/${id}`}>
+        <Button style={{ margin: "2rem 0" }}>Get It Now</Button>
+      </Link>
     </Card>
   );
 };

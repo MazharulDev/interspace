@@ -1,0 +1,57 @@
+"use client";
+
+import BookingForm from "@/components/ui/BookingForm";
+import { useServiceByIdQuery } from "@/redux/api/serviceApi";
+import { useUserQuery } from "@/redux/api/userApi";
+import { getUserInfo } from "@/services/auth.service";
+import { SubmitHandler } from "react-hook-form";
+
+type IDProps = {
+  params: any;
+};
+type FormValues = {
+  name: string;
+  phoneNumber: string;
+  email: string;
+  address: string;
+  packageName: string;
+};
+
+const BookingPage = ({ params }: IDProps) => {
+  const { userId } = getUserInfo() as any;
+  const id = params?.id;
+  const { data: packageData, isLoading } = useServiceByIdQuery(id);
+  const { data: userData } = useUserQuery(userId);
+
+  const defaultValue = {
+    name: userData?.user?.name || "",
+    phoneNumber: userData?.user?.phoneNumber || "",
+    role: userData?.user?.role || "",
+    email: userData?.user?.email || "",
+    packageName: packageData?.title || "",
+  };
+  const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
+    console.log(data);
+    // try {
+    //   const res = await userSignup({ ...data }).unwrap();
+    //   if (res?._id) {
+    //     router.push("/login");
+    //     message.success("Account Created successfully, Please login");
+    //   }
+    // } catch (error) {
+    //   console.error(error);
+    // }
+  };
+  return (
+    <div>
+      <BookingForm
+        onSubmit={onSubmit}
+        userData={userData}
+        packageData={packageData}
+        defaultValue={defaultValue}
+      />
+    </div>
+  );
+};
+
+export default BookingPage;
