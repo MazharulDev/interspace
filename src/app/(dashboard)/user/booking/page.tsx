@@ -17,12 +17,13 @@ import Actionbar from "@/components/ui/ActionBar";
 import { useDeleteUserMutation, useUsersQuery } from "@/redux/api/userApi";
 import { getUserInfo } from "@/services/auth.service";
 import {
+  useBookingByEmailQuery,
   useBookingsQuery,
   useDeleteBookingMutation,
 } from "@/redux/api/bookingApi";
 
 const MyBookingConnection = () => {
-  const { role } = getUserInfo() as any;
+  const { role, userId } = getUserInfo() as any;
   const query: Record<string, any> = {};
 
   const [page, setPage] = useState<number>(1);
@@ -44,7 +45,7 @@ const MyBookingConnection = () => {
   if (!!debouncedSearchTerm) {
     query["searchTerm"] = debouncedSearchTerm;
   }
-  const { data, isLoading } = useBookingsQuery({ ...query });
+  const { data, isLoading } = useBookingByEmailQuery(userId);
   const [deleteBooking] = useDeleteBookingMutation();
   const handleDelete = async (id: string) => {
     const res: any = await deleteBooking(id).unwrap();
@@ -54,8 +55,7 @@ const MyBookingConnection = () => {
     }
   };
 
-  const bookings = data?.bookings;
-  const meta = data?.meta;
+  const bookings = data;
 
   const columns = [
     {
@@ -81,13 +81,19 @@ const MyBookingConnection = () => {
 
     {
       title: "Action",
-      dataIndex: "id",
       render: function (data: any) {
         return (
           <>
-            <Button onClick={() => handleDelete(data)} type="primary" danger>
-              cancel
-            </Button>
+            {data?.status === "pending" && (
+              <Button
+                onClick={() => handleDelete(data._id)}
+                type="primary"
+                danger
+              >
+                cancel
+              </Button>
+            )}
+            {data?.status === "accepted" && <Button type="primary">Pay</Button>}
           </>
         );
       },
@@ -150,7 +156,6 @@ const MyBookingConnection = () => {
         columns={columns}
         dataSource={bookings}
         pageSize={size}
-        totalPages={meta?.total}
         showSizeChanger={true}
         onPaginationChange={onPaginationChange}
         onTableChange={onTableChange}

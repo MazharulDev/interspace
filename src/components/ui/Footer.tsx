@@ -195,7 +195,14 @@ const Footer = () => {
             <p className="footer-copyright-text">
               <a className="footer-copyright-link" href="#" target="_self">
                 {" "}
-                ©2020. | Designed By: Pooja Nahelia. | All rights reserved.{" "}
+                Copyright &copy; {new Date().getFullYear()} Interspace <br />{" "}
+                Developed By{" "}
+                <a
+                  style={{ color: "white" }}
+                  href="https://mdmazharulislam-dev.web.app/"
+                >
+                  Md Mazharul Islam
+                </a>
               </a>
             </p>
           </div>
