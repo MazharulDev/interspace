@@ -14,10 +14,13 @@ import dayjs from "dayjs";
 import ISTable from "@/components/ui/ISTable";
 import BreadCrumb from "@/components/ui/Breadcrumb";
 import Actionbar from "@/components/ui/ActionBar";
-import { useDeleteUserMutation, useUsersQuery } from "@/redux/api/userApi";
 import { getUserInfo } from "@/services/auth.service";
+import {
+  useDeleteServiceMutation,
+  useServicesQuery,
+} from "@/redux/api/serviceApi";
 
-const UserPage = () => {
+const ServicesPage = () => {
   const { role } = getUserInfo() as any;
   const query: Record<string, any> = {};
 
@@ -40,31 +43,31 @@ const UserPage = () => {
   if (!!debouncedSearchTerm) {
     query["searchTerm"] = debouncedSearchTerm;
   }
-  const { data, isLoading } = useUsersQuery({ ...query });
-  const [deleteUser] = useDeleteUserMutation();
+  const { data, isLoading } = useServicesQuery({ ...query });
+  const [deleteService] = useDeleteServiceMutation();
   const handleDelete = async (id: string) => {
-    const res: any = await deleteUser(id).unwrap();
+    const res: any = await deleteService(id).unwrap();
 
     if (res?._id) {
-      message.success("User Deleted successfully");
+      message.success("Service Deleted successfully");
     }
   };
 
-  const admins = data?.users;
+  const admins = data?.services;
   const meta = data?.meta;
 
   const columns = [
     {
-      title: "Name",
-      dataIndex: "name",
+      title: "Package Title",
+      dataIndex: "title",
     },
     {
-      title: "Email",
-      dataIndex: "email",
+      title: "Price/Month",
+      dataIndex: "price",
     },
     {
-      title: "Contact no.",
-      dataIndex: "phoneNumber",
+      title: "Speed/Mbps",
+      dataIndex: "speed",
     },
     {
       title: "Created at",
@@ -81,12 +84,12 @@ const UserPage = () => {
       render: function (data: any) {
         return (
           <>
-            <Link href={`/super_admin/user/view/${data}`}>
+            <Link href={`/${role}/services/view/${data}`}>
               <Button type="primary">
                 <EyeOutlined />
               </Button>
             </Link>
-            <Link href={`/super_admin/user/edit/${data}`}>
+            <Link href={`/${role}/services/edit/${data}`}>
               <Button
                 style={{
                   margin: "0px 5px",
@@ -129,12 +132,12 @@ const UserPage = () => {
             link: `/${role}`,
           },
           {
-            label: "user",
-            link: `/${role}/user`,
+            label: "services",
+            link: `/${role}/services`,
           },
         ]}
       />
-      <Actionbar title="User List">
+      <Actionbar title="Services List">
         <Input
           size="large"
           placeholder="Search"
@@ -144,8 +147,8 @@ const UserPage = () => {
           }}
         />
         <div>
-          <Link href="/super_admin/user/create">
-            <Button type="primary">Create User</Button>
+          <Link href={`/${role}/services/create`}>
+            <Button type="primary">Create Service</Button>
           </Link>
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
             <Button
@@ -174,4 +177,4 @@ const UserPage = () => {
   );
 };
 
-export default UserPage;
+export default ServicesPage;

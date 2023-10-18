@@ -1,10 +1,6 @@
-import { Button, Card, Divider } from "antd";
-import { GiftOutlined } from "@ant-design/icons";
+import { Card, Divider } from "antd";
 
-const ServiceCard = ({ packageName, price, mb, id }: any) => {
-  const handleGetService = (id: string) => {
-    console.log(id);
-  };
+const ServiceCardAdmin = ({ packageName, price, mb }: any) => {
   return (
     <Card
       hoverable
@@ -12,7 +8,6 @@ const ServiceCard = ({ packageName, price, mb, id }: any) => {
         width: 300,
         background: "linear-gradient(to right, #173985,#556485)",
         color: "white",
-        margin: "1rem 0",
       }}
     >
       <h2 style={{ fontFamily: "Kalam", fontSize: "3rem" }}>{packageName}</h2>
@@ -34,25 +29,8 @@ const ServiceCard = ({ packageName, price, mb, id }: any) => {
         <h1 style={{ fontSize: "5rem" }}>{mb}</h1>
         <p style={{ fontSize: "2rem", marginTop: "1rem" }}>Mbps</p>
       </div>
-      <div>
-        <h2>Exclusive Privileges</h2>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "start",
-            gap: "10px",
-            marginTop: "1rem",
-          }}
-        >
-          <GiftOutlined style={{ marginTop: "3px" }} />
-          <p>No Security Deposit Required (for any package)</p>
-        </div>
-      </div>
-      <Button onClick={() => handleGetService(id)} style={{ margin: "2rem 0" }}>
-        Get It Now
-      </Button>
     </Card>
   );
 };
 
-export default ServiceCard;
+export default ServiceCardAdmin;

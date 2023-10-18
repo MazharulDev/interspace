@@ -2,7 +2,7 @@ import { MenuProps } from "antd";
 import {
   ProfileOutlined,
   TableOutlined,
-  AppstoreOutlined,
+  WifiOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
 import { USER_ROLE } from "./role";
@@ -39,6 +39,11 @@ export const sidebarItems = (role: string) => {
       label: <Link href={`/${role}/user`}>Manage User</Link>,
       icon: <TableOutlined />,
       key: `/${role}/user`,
+    },
+    {
+      label: <Link href={`/${role}/services`}>Services</Link>,
+      icon: <WifiOutlined />,
+      key: `/${role}/services`,
     },
   ];
 

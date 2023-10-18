@@ -51,8 +51,8 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link style={{ color: "white" }} href="#">
-              Services
+            <Link style={{ color: "white" }} href="/packages">
+              Packages
             </Link>
           </li>
           <li>
