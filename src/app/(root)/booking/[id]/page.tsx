@@ -1,12 +1,13 @@
 "use client";
 
 import BookingForm from "@/components/ui/BookingForm";
+import ReviewSection from "@/components/ui/ReviewSection";
+import ViewReview from "@/components/ui/ViewReview";
 import { useCreateBookMutation } from "@/redux/api/bookingApi";
 import { useServiceByIdQuery } from "@/redux/api/serviceApi";
 import { useUserQuery } from "@/redux/api/userApi";
 import { getUserInfo } from "@/services/auth.service";
 import { message } from "antd";
-import { useRouter } from "next/navigation";
 import { SubmitHandler } from "react-hook-form";
 
 type IDProps = {
@@ -50,6 +51,11 @@ const BookingPage = ({ params }: IDProps) => {
         packageData={packageData}
         defaultValue={defaultValue}
       />
+      <div>
+        <h1 style={{ textAlign: "center" }}>Review</h1>
+        <ReviewSection id={id} />
+        <ViewReview reviewData={packageData?.reviews} />
+      </div>
     </div>
   );
 };

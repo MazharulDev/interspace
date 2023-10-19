@@ -1,6 +1,7 @@
 import { Button, Col, Row } from "antd";
 import Image from "next/image";
 import BannerImg from "@/assets/banner.png";
+import Link from "next/link";
 
 const Banner = () => {
   return (
@@ -29,7 +30,9 @@ const Banner = () => {
           We’re promised to meeting your needs and delivering industry-leading
           customer service.
         </p>
-        <Button size="large">Get Started Now</Button>
+        <Link href="/packages">
+          <Button size="large">Get Started Now</Button>
+        </Link>
       </Col>
       <Col sm={12} md={16} lg={8}>
         <Image src={BannerImg} width={500} alt="login image" />
