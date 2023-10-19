@@ -52,3 +52,9 @@ export type IUserReview = {
   text: string;
   status: string;
 };
+
+export type ISectionFaq = {
+  _id: string;
+  question: string;
+  answer: string;
+};

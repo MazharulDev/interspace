@@ -28,20 +28,11 @@ const Navbar = () => {
       <div className="menu">
         <ul className="list">
           <li>
-            <Link style={{ color: "white" }} href="#">
-              About Us
-            </Link>
-          </li>
-          <li>
             <Link style={{ color: "white" }} href="/packages">
               Packages
             </Link>
           </li>
-          <li>
-            <Link style={{ color: "white" }} href="#">
-              Pricing
-            </Link>
-          </li>
+
           {userId && (
             <li>
               <Link style={{ color: "white" }} href="/your-review">
@@ -49,11 +40,7 @@ const Navbar = () => {
               </Link>
             </li>
           )}
-          <li>
-            <Link style={{ color: "white" }} href="#">
-              Coverage Area
-            </Link>
-          </li>
+
           {userId && (
             <li>
               <Link style={{ color: "white" }} href="/profile">

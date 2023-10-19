@@ -124,8 +124,8 @@ const MyBookingConnection = () => {
             link: `/${role}`,
           },
           {
-            label: "bookings",
-            link: `/${role}/bookings`,
+            label: "booking",
+            link: `/${role}/booking`,
           },
         ]}
       />

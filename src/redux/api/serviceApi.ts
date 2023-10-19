@@ -1,4 +1,4 @@
-import { IMeta, IService } from "@/types";
+import { IMeta, ISectionFaq, IService } from "@/types";
 import { tagTypes } from "../tagTypes/tag-types";
 import { baseApi } from "./baseApi";
 

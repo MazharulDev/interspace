@@ -26,6 +26,8 @@ const LoginPage = () => {
       if (res?.accessToken) {
         router.push("/");
         message.success("User logged in successfully");
+      } else {
+        message.error("Rechack your email and password");
       }
       storeUserInfo({ accessToken: res?.accessToken });
     } catch (error) {
