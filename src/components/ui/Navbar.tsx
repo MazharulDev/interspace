@@ -1,10 +1,10 @@
 import Link from "next/link";
 import "../../css/Navbar.css";
-import { Avatar, Button, Dropdown, MenuProps, Row, Space } from "antd";
-import { UserOutlined, MenuOutlined } from "@ant-design/icons";
-import { useRouter } from "next/navigation";
+import { Button } from "antd";
+import { MenuOutlined } from "@ant-design/icons";
 import { getUserInfo, removeUserInfo } from "@/services/auth.service";
 import { authkey } from "@/constants/storageKey";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const router = useRouter();
@@ -42,6 +42,13 @@ const Navbar = () => {
               Pricing
             </Link>
           </li>
+          {userId && (
+            <li>
+              <Link style={{ color: "white" }} href="/your-review">
+                Review
+              </Link>
+            </li>
+          )}
           <li>
             <Link style={{ color: "white" }} href="#">
               Coverage Area

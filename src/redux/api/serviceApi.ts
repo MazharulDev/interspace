@@ -22,6 +22,22 @@ export const serviceApi = baseApi.injectEndpoints({
       },
       providesTags: [tagTypes.service],
     }),
+    allServices: build.query({
+      query: (arg: Record<string, any>) => {
+        return {
+          url: `${SERVICE_URL}`,
+          method: "GET",
+          params: arg,
+        };
+      },
+      transformResponse: (response: IService[], meta: IMeta) => {
+        return {
+          services: response,
+          meta,
+        };
+      },
+      providesTags: [tagTypes.service],
+    }),
     serviceSearch: build.query({
       query: (data: string | string[] | undefined) => ({
         url: `${SERVICE_URL}?searchTerm=${data}`,
@@ -69,4 +85,5 @@ export const {
   useDeleteServiceMutation,
   useUpdateServiceMutation,
   useServiceSearchQuery,
+  useAllServicesQuery,
 } = serviceApi;

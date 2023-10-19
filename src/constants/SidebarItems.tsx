@@ -57,6 +57,11 @@ export const sidebarItems = (role: string) => {
       icon: <FormOutlined />,
       key: `/${role}/manage-booking`,
     },
+    {
+      label: <Link href={`/${role}/manage-review`}>Manage Review</Link>,
+      icon: <FormOutlined />,
+      key: `/${role}/manage-review`,
+    },
   ];
 
   const superAdminSidebarItems: MenuProps["items"] = [

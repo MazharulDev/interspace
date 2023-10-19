@@ -1,9 +1,6 @@
 "use client";
 import ServiceCard from "@/components/card/ServiceCard";
-import {
-  useServiceSearchQuery,
-  useServicesQuery,
-} from "@/redux/api/serviceApi";
+import { useAllServicesQuery, useServicesQuery } from "@/redux/api/serviceApi";
 import { useDebounced } from "@/redux/hooks";
 import { IService } from "@/types";
 import {
@@ -22,8 +19,8 @@ import { useState } from "react";
 const PackagesPage = () => {
   const query: Record<string, any> = {};
   const [searchResult, setSearchResult] = useState<string>("");
-  const [packageSelect, setPackageSelect] = useState<string>();
-  const [speed, setSpeed] = useState<number>(10);
+  const [packageSelect, setPackageSelect] = useState<any>(null);
+  const [speed, setSpeed] = useState<any>(null);
 
   const debouncedSearchTerm = useDebounced({
     searchQuery: searchResult,
@@ -33,11 +30,8 @@ const PackagesPage = () => {
   if (!!debouncedSearchTerm) {
     query["searchTerm"] = debouncedSearchTerm;
   }
-  const handleFilter = () => {
-    query["title"] = packageSelect;
-    // console.log(packageSelect);
-    // query["speed"] = speed;
-  };
+  query["title"] = packageSelect;
+  query["speed"] = speed;
 
   const onMbChange = (newValue: number) => {
     setSpeed(newValue);
@@ -46,6 +40,13 @@ const PackagesPage = () => {
     setPackageSelect(value);
   };
   const { data, isLoading } = useServicesQuery({ ...query });
+  const { data: allSarvice } = useAllServicesQuery({});
+
+  const handleReset = () => {
+    setPackageSelect(null);
+    setSpeed(null);
+    setSearchResult("");
+  };
 
   if (isLoading) {
     return (
@@ -63,13 +64,21 @@ const PackagesPage = () => {
     );
   }
   //@ts-ignore
-  const services: IService[] = data?.services;
+  const allSarvices: IService[] = allSarvice?.services;
   const departmentOptions =
-    services &&
-    services?.map((service) => {
+    allSarvices &&
+    allSarvices?.map((service) => {
       return {
         label: service?.title,
         value: service?.title,
+      };
+    });
+  const mbpsOption =
+    allSarvices &&
+    allSarvices?.map((service) => {
+      return {
+        label: service?.speed,
+        value: service?.speed,
       };
     });
 
@@ -81,7 +90,7 @@ const PackagesPage = () => {
             <h1 style={{ textAlign: "center", marginBottom: "2rem" }}>
               Filter
             </h1>
-            <label>Package Name</label>
+            <label>Search</label>
             <Input
               size="large"
               placeholder="Search"
@@ -98,21 +107,16 @@ const PackagesPage = () => {
               placeholder="Select package"
               onChange={handlePackageChange}
             />
-            <label>Package Name</label>
-            <InputNumber
-              min={1}
-              max={20}
-              style={{ margin: "0 16px" }}
-              value={speed}
-            />
-            <Slider
-              min={1}
-              max={20}
-              onChange={onMbChange}
-              value={typeof speed === "number" ? speed : 0}
+            <label>Mbps</label>
+            <Select
               style={{ width: "100%", marginTop: "5px", marginBottom: "10px" }}
+              options={mbpsOption}
+              placeholder="Select package"
+              onChange={onMbChange}
             />
-            <Button onClick={handleFilter}>Filter</Button>
+            <Button onClick={handleReset} danger>
+              Reset
+            </Button>
           </Col>
 
           <Col sm={12} md={16} lg={18}>

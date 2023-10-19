@@ -45,3 +45,10 @@ export type IBooking = {
   address: string;
   packageName: string;
 };
+
+export type IUserReview = {
+  _id: string;
+  name: string;
+  text: string;
+  status: string;
+};
