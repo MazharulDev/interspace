@@ -34,8 +34,8 @@ const Banner = () => {
           <Button size="large">Get Started Now</Button>
         </Link>
       </Col>
-      <Col sm={12} md={16} lg={8}>
-        <Image src={BannerImg} width={500} alt="login image" />
+      <Col sm={6} md={10} lg={8}>
+        <Image src={BannerImg} width={380} alt="login image" />
       </Col>
     </Row>
   );

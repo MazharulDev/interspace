@@ -11,8 +11,8 @@ const ExperianceSection = () => {
         minHeight: "100vh",
       }}
     >
-      <Col sm={12} md={16} lg={10}>
-        <Image src={ExperianceImg} width={500} alt="login image" />
+      <Col sm={12} md={10} lg={10}>
+        <Image src={ExperianceImg} width={380} alt="login image" />
       </Col>
 
       <Col sm={12} md={8} lg={10} style={{ padding: "0 15px" }}>
