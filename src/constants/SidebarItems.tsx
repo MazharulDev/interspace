@@ -25,23 +25,17 @@ export const sidebarItems = (role: string) => {
         },
       ],
     },
+  ];
+  const userSidebarItems: MenuProps["items"] = [
     {
       label: <Link href={`/${role}/booking`}>My booking connection</Link>,
       icon: <CarryOutOutlined />,
       key: `/${role}/booking`,
     },
   ];
-  const commonAdminSidebarItems: MenuProps["items"] = [
-    // {
-    //   label: <Link href={`/${role}/user`}>Manage User</Link>,
-    //   icon: <TableOutlined />,
-    //   key: `/${role}/user`,
-    // },
-  ];
 
   const adminSidebarItems: MenuProps["items"] = [
     ...defaultSidebarItems,
-    ...commonAdminSidebarItems,
     {
       label: <Link href={`/${role}/user`}>Manage User</Link>,
       icon: <TableOutlined />,
@@ -66,7 +60,6 @@ export const sidebarItems = (role: string) => {
 
   const superAdminSidebarItems: MenuProps["items"] = [
     ...defaultSidebarItems,
-    ...commonAdminSidebarItems,
     {
       label: <Link href={`/${role}/admin`}>Manage Admin</Link>,
       icon: <TableOutlined />,
@@ -81,6 +74,7 @@ export const sidebarItems = (role: string) => {
 
   if (role === USER_ROLE.SUPER_ADMIN) return superAdminSidebarItems;
   else if (role === USER_ROLE.ADMIN) return adminSidebarItems;
+  else if (role === USER_ROLE.USER) return userSidebarItems;
   else {
     return defaultSidebarItems;
   }
