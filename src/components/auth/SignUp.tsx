@@ -40,11 +40,11 @@ const SignUp = () => {
         minHeight: "100vh",
       }}
     >
-      <Col sm={12} md={16} lg={10}>
+      <Col sm={12} md={10} lg={10}>
         <Image src={signupImage} width={500} alt="login image" />
       </Col>
 
-      <Col sm={12} md={8} lg={8}>
+      <Col sm={12} md={8} lg={10} style={{ padding: "0 15px" }}>
         <h1
           style={{
             margin: "15px 0px",
