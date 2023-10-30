@@ -18,7 +18,7 @@ const PromiseCard = ({ img, title, text1, text2, text3, text4 }: any) => {
             }}
           >
             <CheckOutlined style={{ color: "green" }} />
-            <p>{text1}</p>
+            <p style={{ fontWeight: "bold" }}>{text1}</p>
           </div>
         </div>
 
@@ -32,13 +32,13 @@ const PromiseCard = ({ img, title, text1, text2, text3, text4 }: any) => {
             }}
           >
             <CheckOutlined style={{ color: "green" }} />
-            <p>{text2}</p>
+            <p style={{ fontWeight: "bold" }}>{text2}</p>
           </div>
         </div>
         <div>
           <div style={{ display: "flex", gap: "5px", fontSize: "1rem" }}>
             <CheckOutlined style={{ color: "green" }} />
-            <p>{text3}</p>
+            <p style={{ fontWeight: "bold" }}>{text3}</p>
           </div>
         </div>
         <div>
@@ -51,7 +51,7 @@ const PromiseCard = ({ img, title, text1, text2, text3, text4 }: any) => {
             }}
           >
             <CheckOutlined style={{ color: "green" }} />
-            <p>{text4}</p>
+            <p style={{ fontWeight: "bold" }}>{text4}</p>
           </div>
         </div>
       </div>
