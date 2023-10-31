@@ -13,7 +13,6 @@ const AdminViewPage = ({ params }: IDProps) => {
   const { role } = getUserInfo() as any;
   const id = params?.id;
   const { data } = useAdminQuery(id);
-  console.log(data);
   return (
     <>
       <div

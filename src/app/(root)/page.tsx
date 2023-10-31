@@ -14,7 +14,7 @@ const HomePage = () => {
       <ExperianceSection />
       <AvilableService />
       <Testimonial />
-      {/* <FaqSection /> */}
+      <FaqSection />
     </div>
   );
 };
