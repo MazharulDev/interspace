@@ -71,7 +71,7 @@ const MyBookingConnection = () => {
       dataIndex: "status",
     },
     {
-      title: "Created at",
+      title: "Connection Date",
       dataIndex: "createdAt",
       render: function (data: any) {
         return data && dayjs(data).format("MMM D, YYYY hh:mm A");
@@ -93,7 +93,11 @@ const MyBookingConnection = () => {
                 cancel
               </Button>
             )}
-            {data?.status === "accepted" && <Button type="primary">Pay</Button>}
+            {data?.status === "accepted" && (
+              <Link href={"/user/booking/pay"}>
+                <Button type="primary">Pay</Button>
+              </Link>
+            )}
           </>
         );
       },

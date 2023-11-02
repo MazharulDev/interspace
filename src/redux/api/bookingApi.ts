@@ -51,6 +51,13 @@ export const bookingApi = baseApi.injectEndpoints({
       }),
       providesTags: [tagTypes.booking],
     }),
+    singleBookingByEmail: build.query({
+      query: (userId: string | undefined) => ({
+        url: `${BOOKING_URL}/single/${userId}`,
+        method: "GET",
+      }),
+      providesTags: [tagTypes.booking],
+    }),
   }),
 });
 
@@ -60,4 +67,5 @@ export const {
   useDeleteBookingMutation,
   useUpdateBookingMutation,
   useBookingByEmailQuery,
+  useSingleBookingByEmailQuery,
 } = bookingApi;
