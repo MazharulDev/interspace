@@ -2,27 +2,41 @@
 
 import Form from "@/components/forms/Form";
 import FormInput from "@/components/forms/FormInput";
+import FormSelectField from "@/components/forms/FormSelectField";
 import BreadCrumb from "@/components/ui/Breadcrumb";
+import { monthNames } from "@/constants/month";
 import { useSingleBookingByEmailQuery } from "@/redux/api/bookingApi";
+import { useCreatePaymentMutation } from "@/redux/api/paymentApi";
 import { getUserInfo } from "@/services/auth.service";
 import { Button, Col, Row } from "antd";
 
 const PaymentPage = () => {
   const { role, userId } = getUserInfo() as any;
   const { data, isLoading } = useSingleBookingByEmailQuery(userId);
-  console.log(data);
+  const currentTime = new Date();
+  const year = currentTime.getFullYear();
+  const month = monthNames[currentTime.getMonth()];
+  const [createPayment] = useCreatePaymentMutation();
 
   const defaultValue = {
+    userEmail: data?.email || "",
+    phoneNumber: data?.phoneNumber || "",
+    address: data?.address || "",
     packageName: data?.packageName || "",
+    amount: Number(data?.packagePrice) || "",
+    month: month.value || "",
+    year: year.toString() || "",
   };
 
   const onSubmit = async (values: any) => {
-    console.log(values);
-    //   try {
-
-    //   } catch (err: any) {
-    //     console.error(err.message);
-    //   }
+    try {
+      const res = await createPayment(values).unwrap();
+      if (res) {
+        window.location.replace(res);
+      }
+    } catch (err: any) {
+      console.error(err.message);
+    }
   };
   return (
     <div>
@@ -75,6 +89,22 @@ const PaymentPage = () => {
                 label="Package Name"
                 defaultValue={data?.packageName}
                 disabledInput="true"
+              />
+            </Col>
+
+            <Col
+              className="gutter-row"
+              span={12}
+              style={{
+                marginBottom: "10px",
+              }}
+            >
+              <FormSelectField
+                options={monthNames}
+                name="month"
+                size="large"
+                label="Months"
+                defaultValue={month}
               />
             </Col>
           </Row>

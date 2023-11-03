@@ -78,10 +78,19 @@ const BookingForm = ({
               <div style={{ margin: "1rem 0" }}>
                 <FormInput
                   name="packageName"
-                  placeholder="Jhon Deo"
                   type="text"
                   size="large"
                   label="Package"
+                  disabledInput="true"
+                />
+              </div>
+              <div style={{ margin: "1rem 0" }}>
+                <FormInput
+                  name="packagePrice"
+                  placeholder="Jhon Deo"
+                  type="text"
+                  size="large"
+                  label="Package Price"
                   disabledInput="true"
                 />
               </div>

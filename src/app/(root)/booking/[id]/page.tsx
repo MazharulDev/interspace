@@ -34,6 +34,7 @@ const BookingPage = ({ params }: IDProps) => {
     phoneNumber: userData?.user?.phoneNumber || "",
     email: userData?.user?.email || "",
     packageName: packageData?.title || "",
+    packagePrice: packageData?.price || "",
   };
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
     const res = await createBook({ ...data }).unwrap();
