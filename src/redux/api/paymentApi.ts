@@ -19,7 +19,20 @@ export const paymentApi = baseApi.injectEndpoints({
       }),
       providesTags: [tagTypes.payment],
     }),
+    userPayments: build.query({
+      query: (email: string) => {
+        return {
+          url: `${PAYMENT_URL}/payments/${email}`,
+          method: "GET",
+        };
+      },
+      providesTags: [tagTypes.payment],
+    }),
   }),
 });
 
-export const { useCreatePaymentMutation, usePaymentByTransQuery } = paymentApi;
+export const {
+  useCreatePaymentMutation,
+  usePaymentByTransQuery,
+  useUserPaymentsQuery,
+} = paymentApi;
