@@ -59,6 +59,11 @@ export const sidebarItems = (role: string) => {
       key: `/${role}/manage-booking`,
     },
     {
+      label: <Link href={`/${role}/payments`}>Payments Data</Link>,
+      icon: <AccountBookOutlined />,
+      key: `/${role}/payments`,
+    },
+    {
       label: <Link href={`/${role}/manage-review`}>Manage Review</Link>,
       icon: <FormOutlined />,
       key: `/${role}/manage-review`,

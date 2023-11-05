@@ -1,3 +1,4 @@
+import { IMeta, IPayment } from "@/types";
 import { tagTypes } from "../tagTypes/tag-types";
 import { baseApi } from "./baseApi";
 
@@ -28,6 +29,22 @@ export const paymentApi = baseApi.injectEndpoints({
       },
       providesTags: [tagTypes.payment],
     }),
+    paymentFilter: build.query({
+      query: (arg: Record<string, any>) => {
+        return {
+          url: `${PAYMENT_URL}/all`,
+          method: "GET",
+          params: arg,
+        };
+      },
+      transformResponse: (response: IPayment[], meta: IMeta) => {
+        return {
+          payments: response,
+          meta,
+        };
+      },
+      providesTags: [tagTypes.payment],
+    }),
   }),
 });
 
@@ -35,4 +52,5 @@ export const {
   useCreatePaymentMutation,
   usePaymentByTransQuery,
   useUserPaymentsQuery,
+  usePaymentFilterQuery,
 } = paymentApi;
