@@ -1,10 +1,10 @@
 "use client";
 
 import { useDebounced } from "@/redux/hooks";
-import { Button, Input, message } from "antd";
+import { Button, Input, Tag, message } from "antd";
 import Link from "next/link";
 import { useState } from "react";
-import { ReloadOutlined } from "@ant-design/icons";
+import { ReloadOutlined, SyncOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 import ISTable from "@/components/ui/ISTable";
 import BreadCrumb from "@/components/ui/Breadcrumb";
@@ -78,13 +78,19 @@ const MyBookingConnection = () => {
         return (
           <>
             {data?.status === "pending" && (
-              <Button
-                onClick={() => handleDelete(data._id)}
-                type="primary"
-                danger
-              >
-                cancel
-              </Button>
+              <div>
+                <Button
+                  style={{ marginRight: "5px" }}
+                  onClick={() => handleDelete(data._id)}
+                  type="primary"
+                  danger
+                >
+                  cancel
+                </Button>
+                <Tag icon={<SyncOutlined spin />} color="processing">
+                  Wait for admin accept
+                </Tag>
+              </div>
             )}
             {data?.status === "accepted" && (
               <Link href={"/user/booking/pay"}>

@@ -8,7 +8,7 @@ import { monthNames } from "@/constants/month";
 import { useSingleBookingByEmailQuery } from "@/redux/api/bookingApi";
 import { useCreatePaymentMutation } from "@/redux/api/paymentApi";
 import { getUserInfo } from "@/services/auth.service";
-import { Button, Col, Row } from "antd";
+import { Button, Col, Row, message } from "antd";
 
 const PaymentPage = () => {
   const { role, userId } = getUserInfo() as any;
@@ -30,9 +30,11 @@ const PaymentPage = () => {
 
   const onSubmit = async (values: any) => {
     try {
-      const res = await createPayment(values).unwrap();
-      if (res) {
-        window.location.replace(res);
+      const res: any = await createPayment(values);
+      if (res?.data === null) {
+        message.warning("Already Payment");
+      } else {
+        window.location.replace(res?.data?.link);
       }
     } catch (err: any) {
       console.error(err.message);
