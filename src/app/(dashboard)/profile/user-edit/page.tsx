@@ -20,21 +20,24 @@ const UserEditProfilePage = () => {
   const defaultValue = {
     name: data?.user?.name || "",
     phoneNumber: data?.user?.phoneNumber || "",
+    image: data?.user?.image || "",
   };
 
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
-    try {
-      const res = await updateUser({ email: userId, body: data }).unwrap();
-      if (res?._id) {
-        router.push("/profile");
-        message.success("User updated successfully");
-      }
-    } catch (error) {
-      console.error(error);
-    }
+    console.log(data);
+    // try {
+    //   const res = await updateUser({ email: userId, body: data }).unwrap();
+    //   if (res?._id) {
+    //     router.push("/profile");
+    //     message.success("User updated successfully");
+    //   }
+    // } catch (error) {
+    //   console.error(error);
+    // }
   };
   const name = data?.user?.name;
   const phoneNumber = data?.user?.phoneNumber;
+  const image = data?.user?.image;
   return (
     <div>
       <EditProfile
@@ -42,6 +45,7 @@ const UserEditProfilePage = () => {
         onSubmit={onSubmit}
         name={name}
         phoneNumber={phoneNumber}
+        image={image}
         defaultValue={defaultValue}
       />
     </div>

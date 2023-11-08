@@ -56,6 +56,10 @@ const PaymentShowPage = () => {
 
   const columns = [
     {
+      title: "Email",
+      dataIndex: "email",
+    },
+    {
       title: "Package",
       dataIndex: "packageName",
     },
@@ -110,12 +114,12 @@ const PaymentShowPage = () => {
             link: `/${role}`,
           },
           {
-            label: "user",
-            link: `/${role}/user`,
+            label: "payment",
+            link: `/${role}/payments`,
           },
         ]}
       />
-      <Actionbar title="User List">
+      <Actionbar title="Payment List">
         <Input
           size="large"
           placeholder="Search"
@@ -125,9 +129,6 @@ const PaymentShowPage = () => {
           }}
         />
         <div>
-          <Link href="/super_admin/user/create">
-            <Button type="primary">Create User</Button>
-          </Link>
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
             <Button
               style={{ margin: "0px 5px" }}

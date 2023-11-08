@@ -6,12 +6,14 @@ import BreadCrumb from "../ui/Breadcrumb";
 import FormInput from "../forms/FormInput";
 
 import Form from "../forms/Form";
+import UploadImage from "../ui/UploadImage";
 
 const EditProfile = ({
   role,
   onSubmit,
   name,
   phoneNumber,
+  image,
   defaultValue,
 }: any) => {
   return (
@@ -28,11 +30,7 @@ const EditProfile = ({
           },
         ]}
       />
-      <Row justify="center" align="middle" style={{ marginTop: "2rem" }}>
-        <Space wrap size={16}>
-          <Avatar size={64} icon={<UserOutlined />} />
-        </Space>
-      </Row>
+
       <Row justify="center" align="middle">
         <div
           style={{
@@ -41,6 +39,11 @@ const EditProfile = ({
           }}
         >
           <Form submitHandler={onSubmit} defaultValues={defaultValue}>
+            <Row justify="center" align="middle" style={{ marginTop: "2rem" }}>
+              <Space wrap size={16}>
+                <UploadImage name="file" />
+              </Space>
+            </Row>
             <div>
               <FormInput
                 name="name"
