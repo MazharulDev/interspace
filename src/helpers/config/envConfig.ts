@@ -3,5 +3,5 @@ export const getBaseUrl = (): string => {
 };
 
 export const getImgbbAPI = (): string => {
-  return process.env.REACT_APP_IMGBB_API_KEY as string;
+  return process.env.NEXT_PUBLIC_API_IMGBB_TOKEN as string;
 };
