@@ -1,23 +1,36 @@
 "use client";
-import { Upload } from "antd";
+import { Upload, message } from "antd";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { getImgbbAPI } from "@/helpers/config/envConfig";
 import { useState } from "react";
 import Image from "next/image";
+import {
+  RcFile,
+  UploadChangeParam,
+  UploadFile,
+  UploadProps,
+} from "antd/es/upload";
+import { useFormContext } from "react-hook-form";
 
 type ImageUploadProps = {
   name: string;
 };
 
 const UploadImage = ({ name }: ImageUploadProps) => {
+  const [loading, setLoading] = useState(false);
+  const { setValue } = useFormContext();
+
   const imgbbApiKey = getImgbbAPI();
   const [imgUrl, setImgUrl] = useState<string>("");
-  const [loading, setLoading] = useState(false);
 
-  const handleChange = async (info: any) => {
-    const img = info?.file;
+  const handleChange: UploadProps["onChange"] = (
+    info: UploadChangeParam<UploadFile>
+  ) => {
+    const imageFile = info?.file;
     const formData = new FormData();
-    formData.append("image", img);
+
+    //@ts-ignore
+    formData.append("image", imageFile);
     const url = `https://api.imgbb.com/1/upload?key=${imgbbApiKey}`;
     fetch(url, {
       method: "POST",
@@ -26,8 +39,10 @@ const UploadImage = ({ name }: ImageUploadProps) => {
       .then((res) => res.json())
       .then((result) => {
         setImgUrl(result?.data?.display_url);
+        setValue(name, result?.data?.display_url);
       });
   };
+
   const uploadButton = (
     <div>
       {loading ? <LoadingOutlined /> : <PlusOutlined />}
@@ -52,7 +67,7 @@ const UploadImage = ({ name }: ImageUploadProps) => {
             height={100}
             src={imgUrl}
             alt="avatar"
-            style={{ width: "100%" }}
+            style={{ width: "100%", borderRadius: "50%" }}
           />
         ) : (
           uploadButton

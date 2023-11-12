@@ -24,16 +24,15 @@ const UserEditProfilePage = () => {
   };
 
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
-    console.log(data);
-    // try {
-    //   const res = await updateUser({ email: userId, body: data }).unwrap();
-    //   if (res?._id) {
-    //     router.push("/profile");
-    //     message.success("User updated successfully");
-    //   }
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    try {
+      const res = await updateUser({ email: userId, body: data }).unwrap();
+      if (res?._id) {
+        router.push("/profile");
+        message.success("User updated successfully");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
   const name = data?.user?.name;
   const phoneNumber = data?.user?.phoneNumber;

@@ -41,7 +41,7 @@ const EditProfile = ({
           <Form submitHandler={onSubmit} defaultValues={defaultValue}>
             <Row justify="center" align="middle" style={{ marginTop: "2rem" }}>
               <Space wrap size={16}>
-                <UploadImage name="file" />
+                <UploadImage name="image" />
               </Space>
             </Row>
             <div>
