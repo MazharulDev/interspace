@@ -4,6 +4,7 @@ import { getUserInfo } from "@/services/auth.service";
 import { Avatar, Button, Row, Space } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import BreadCrumb from "../ui/Breadcrumb";
+import Image from "next/image";
 
 const Profile = () => {
   const { userId, role } = getUserInfo() as any;
@@ -28,7 +29,35 @@ const Profile = () => {
       </div>
       <Row justify="center" align="middle" style={{ marginTop: "2rem" }}>
         <Space wrap size={16}>
-          <Avatar size={64} icon={<UserOutlined />} />
+          {role === "user" ? (
+            <div>
+              {data?.user?.image ? (
+                <Image
+                  width={100}
+                  height={100}
+                  src={data?.user?.image}
+                  alt="avatar"
+                  style={{ width: "100%", borderRadius: "50%" }}
+                />
+              ) : (
+                <Avatar size={64} icon={<UserOutlined />} />
+              )}
+            </div>
+          ) : (
+            <div>
+              {data?.admin?.image ? (
+                <Image
+                  width={100}
+                  height={100}
+                  src={data?.admin?.image}
+                  alt="avatar"
+                  style={{ width: "100%", borderRadius: "50%" }}
+                />
+              ) : (
+                <Avatar size={64} icon={<UserOutlined />} />
+              )}
+            </div>
+          )}
         </Space>
       </Row>
       <div style={{ textAlign: "center", margin: "2rem 0" }}>
