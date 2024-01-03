@@ -14,7 +14,7 @@ const Navbar = () => {
   };
   const { userId } = getUserInfo() as any;
   return (
-    <nav className="navbar container">
+    <nav className="navbar ">
       <Link style={{ fontWeight: "bold" }} className="logo" href="/">
         Interspace
       </Link>

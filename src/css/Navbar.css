@@ -10,10 +10,8 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  /* background-color: #e5e9ec; */
   background: #004658;
   padding: 20px;
-  /* box-shadow: 0 0 5px #000; */
   z-index: 1;
 }
 .navbar Link {
