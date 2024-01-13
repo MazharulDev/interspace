@@ -1,22 +1,13 @@
-import { Button, Card, Divider } from "antd";
+import { Button, Divider } from "antd";
 import { GiftOutlined } from "@ant-design/icons";
 import Link from "next/link";
 
 const ServiceCard = ({ packageName, price, mb, id }: any) => {
-  const handleGetService = (id: string) => {
-    console.log(id);
-  };
   return (
-    <Card
-      hoverable
-      style={{
-        width: 300,
-        background: "linear-gradient(to right, #173985,#556485)",
-        color: "white",
-        margin: "1rem 0",
-      }}
-    >
-      <h2 style={{ fontFamily: "Kalam", fontSize: "3rem" }}>{packageName}</h2>
+    <div className="w-96 bg-white shadow-xl hover:scale-105  p-5 rounded-lg duration-100">
+      <h2 className="font-bold text-4xl primary-text font-[Lemon]">
+        {packageName}
+      </h2>
       <div
         style={{
           display: "flex",
@@ -32,7 +23,7 @@ const ServiceCard = ({ packageName, price, mb, id }: any) => {
       </div>
       <Divider style={{ background: "white" }} />
       <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-        <h1 style={{ fontSize: "5rem" }}>{mb}</h1>
+        <h1 className="text-5xl primary-text">{mb}</h1>
         <p style={{ fontSize: "2rem", marginTop: "1rem" }}>Mbps</p>
       </div>
       <div>
@@ -52,7 +43,7 @@ const ServiceCard = ({ packageName, price, mb, id }: any) => {
       <Link href={`/booking/${id}`}>
         <Button style={{ margin: "2rem 0" }}>Get It Now</Button>
       </Link>
-    </Card>
+    </div>
   );
 };
 

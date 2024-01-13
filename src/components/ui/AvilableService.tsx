@@ -3,6 +3,7 @@ import { Button, Col, Row, Space, Spin } from "antd";
 import ServiceCard from "../card/ServiceCard";
 import { useServicesQuery } from "@/redux/api/serviceApi";
 import Link from "next/link";
+import ButtonMain from "./Button";
 
 const AvilableService = () => {
   const { data, isLoading } = useServicesQuery({});
@@ -22,15 +23,17 @@ const AvilableService = () => {
     );
   }
   return (
-    <div style={{ backgroundColor: "white", padding: "15px 0" }}>
-      <div style={{ textAlign: "center" }}>
-        <h1>Discover The Best Deals for Your Entertainment</h1>
-        <p style={{ margin: "10px 0", color: "GrayText", fontSize: "20px" }}>
+    <div className="max-w-[1200px] mx-auto min-h-[600px] relative overflow-hidden mb-20">
+      <div className="text-center mb-10">
+        <h1 className="text-3xl primary-text font-bold">
+          Discover The Best Deals for Your Entertainment
+        </h1>
+        <p className="text-base mt-2">
           Exclusive Deals for You Internet & Entertainment
         </p>
       </div>
-      <div>
-        <Row justify="center" align="middle" style={{ padding: "5rem 0" }}>
+      <div className="flex justify-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-center gap-6">
           {data?.services?.slice(0, 3)?.map((service) => (
             <Col key={service._id} sm={12} md={16} lg={6}>
               <div>
@@ -43,13 +46,11 @@ const AvilableService = () => {
               </div>
             </Col>
           ))}
-        </Row>
+        </div>
       </div>
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <div className="flex justify-center">
         <Link href="/packages">
-          <Button type="primary" size="large">
-            View all services
-          </Button>
+          <ButtonMain>View all services</ButtonMain>
         </Link>
       </div>
     </div>

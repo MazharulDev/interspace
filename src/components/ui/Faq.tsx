@@ -16,13 +16,13 @@ const FaqSection = () => {
   const items = generateItemsFromData(data);
 
   return (
-    <div style={{ margin: "5rem" }}>
-      <h1 style={{ textAlign: "center", margin: "2rem 0" }}>FAQ</h1>
-      <Row justify="center" align="middle">
-        <Col lg={16}>
+    <div className="mb-20 max-w-[1200px] overflow-hidden mx-auto px-5 lg:px-0 mt-14 md:mt-16 lg:mt-24">
+      <h1 className="text-center text-4xl primary-text my-10 font-bold">FAQ</h1>
+      <div className="flex justify-center items-center">
+        <div className="w-full">
           <Collapse items={items} />
-        </Col>
-      </Row>
+        </div>
+      </div>
     </div>
   );
 };
