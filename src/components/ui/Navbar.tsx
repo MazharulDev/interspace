@@ -3,6 +3,7 @@ import Link from "next/link";
 import "../../css/Navbar.css";
 import { getUserInfo } from "@/services/auth.service";
 import { useState } from "react";
+import Image from "next/image";
 
 const Navbar = () => {
   const { userId } = getUserInfo() as any;
@@ -13,7 +14,13 @@ const Navbar = () => {
         <div className="flex h-16 items-center justify-between">
           <div className="flex-1 md:flex md:items-center md:gap-12">
             <Link className="block text-[#00674A]" href="/">
-              <h2 className="text-2xl">Interspace</h2>
+              <span className="sr-only">Home</span>
+              <Image
+                src="https://i.ibb.co/5nbgNyX/interspace.png"
+                height={49}
+                width={49}
+                alt="Dino HR Logo"
+              />
             </Link>
           </div>
 

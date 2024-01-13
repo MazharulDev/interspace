@@ -1,57 +1,36 @@
 import Image from "next/image";
 import { CheckOutlined } from "@ant-design/icons";
-import { Divider } from "antd";
 
 const PromiseCard = ({ img, title, text1, text2, text3, text4 }: any) => {
   return (
-    <div style={{ display: "flex", gap: "20px", padding: "5px" }}>
-      <Image src={img} width={80} height={80} alt="Home internet" />
+    <div className="flex justify-start items-center gap-5 ">
+      <Image src={img} width={120} height={120} alt="Home internet" />
       <div>
-        <h1 style={{ margin: "8px 0" }}>{title}</h1>
+        <h1 className="text-2xl mb-4">{title}</h1>
 
         <div>
-          <div
-            style={{
-              display: "flex",
-              fontSize: "1rem",
-              gap: "5px",
-            }}
-          >
+          <div className="flex justify-start items-center gap-3">
             <CheckOutlined style={{ color: "green" }} />
-            <p style={{ fontWeight: "bold" }}>{text1}</p>
+            <p>{text1}</p>
           </div>
         </div>
 
         <div>
-          <div
-            style={{
-              display: "flex",
-              gap: "5px",
-              margin: "5px 0",
-              fontSize: "1rem",
-            }}
-          >
+          <div className="flex justify-start items-center gap-3">
             <CheckOutlined style={{ color: "green" }} />
-            <p style={{ fontWeight: "bold" }}>{text2}</p>
+            <p>{text2}</p>
           </div>
         </div>
         <div>
-          <div style={{ display: "flex", gap: "5px", fontSize: "1rem" }}>
+          <div className="flex justify-start items-center gap-3">
             <CheckOutlined style={{ color: "green" }} />
-            <p style={{ fontWeight: "bold" }}>{text3}</p>
+            <p>{text3}</p>
           </div>
         </div>
         <div>
-          <div
-            style={{
-              display: "flex",
-              gap: "5px",
-              margin: "5px 0",
-              fontSize: "1rem",
-            }}
-          >
+          <div className="flex justify-start items-center gap-3">
             <CheckOutlined style={{ color: "green" }} />
-            <p style={{ fontWeight: "bold" }}>{text4}</p>
+            <p>{text4}</p>
           </div>
         </div>
       </div>

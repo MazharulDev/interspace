@@ -1,4 +1,3 @@
-import { Col, Row } from "antd";
 import homeInternetImg from "@/assets/home-internet-icon.png";
 import corporateInternetImg from "@/assets/corporate-internet-icon.png";
 import dataConnectivityImg from "@/assets/data-connectivity-icon.png";
@@ -6,12 +5,8 @@ import PromiseCard from "../card/PromiseCard";
 
 const OurPromise = () => {
   return (
-    <Row
-      justify="center"
-      align="middle"
-      style={{ padding: "5rem 0", backgroundColor: "white" }}
-    >
-      <Col sm={12} md={16} lg={6}>
+    <div>
+      <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-4 md:px-0">
         <PromiseCard
           img={homeInternetImg}
           title={"Home Internet"}
@@ -20,8 +15,7 @@ const OurPromise = () => {
           text3={"Real IP Included"}
           text4={"Stable Connection With No Interruptions"}
         />
-      </Col>
-      <Col sm={12} md={16} lg={6}>
+
         <PromiseCard
           img={corporateInternetImg}
           title={"Corporate Internet"}
@@ -30,8 +24,7 @@ const OurPromise = () => {
           text3={"24×7 Support"}
           text4={"Flexible & Scalable internet Bandwidth"}
         />
-      </Col>
-      <Col sm={12} md={16} lg={6}>
+
         <PromiseCard
           img={dataConnectivityImg}
           title={"Data Connectivity"}
@@ -40,8 +33,8 @@ const OurPromise = () => {
           text3={"Optical Fiber Network"}
           text4={"Symmetrical Upload & Download Speeds"}
         />
-      </Col>
-    </Row>
+      </div>
+    </div>
   );
 };
 

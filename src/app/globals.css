@@ -12,3 +12,7 @@
   font-family: "Open Sans", sans-serif;
   scroll-behavior: smooth;
 }
+
+.primary-text {
+  color: #2e0068;
+}
