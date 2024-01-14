@@ -17,6 +17,7 @@ import BreadCrumb from "@/components/ui/Breadcrumb";
 import Actionbar from "@/components/ui/ActionBar";
 import { useDeleteUserMutation, useUsersQuery } from "@/redux/api/userApi";
 import { getUserInfo } from "@/services/auth.service";
+import ISModal from "@/components/ui/Modal/Modal";
 
 const UserPage = () => {
   const { role } = getUserInfo() as any;
@@ -27,6 +28,9 @@ const UserPage = () => {
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
+
+  const [userId, setUserId] = useState<string>("");
+  const [open, setOpen] = useState<boolean>(false);
 
   query["limit"] = size;
   query["page"] = page;
@@ -46,8 +50,9 @@ const UserPage = () => {
   const handleDelete = async (id: string) => {
     const res: any = await deleteUser(id).unwrap();
 
-    if (res?._id) {
+    if (res) {
       message.success("User Deleted successfully");
+      setOpen(false);
     }
   };
 
@@ -83,7 +88,7 @@ const UserPage = () => {
         return (
           <>
             <Link href={`/super_admin/user/view/${data}`}>
-              <Button type="primary">
+              <Button type="primary" className="bg-blue-500">
                 <EyeOutlined />
               </Button>
             </Link>
@@ -93,11 +98,19 @@ const UserPage = () => {
                   margin: "0px 5px",
                 }}
                 type="primary"
+                className="bg-blue-500"
               >
                 <EditOutlined />
               </Button>
             </Link>
-            <Button onClick={() => handleDelete(data)} type="primary" danger>
+            <Button
+              onClick={() => {
+                setOpen(true);
+                setUserId(data);
+              }}
+              type="primary"
+              danger
+            >
               <DeleteOutlined />
             </Button>
           </>
@@ -122,56 +135,69 @@ const UserPage = () => {
     setSearchTerm("");
   };
   return (
-    <div>
-      <BreadCrumb
-        items={[
-          {
-            label: `${role}`,
-            link: `/${role}`,
-          },
-          {
-            label: "user",
-            link: `/${role}/user`,
-          },
-        ]}
-      />
-      <Actionbar title="User List">
-        <Input
-          size="large"
-          placeholder="Search"
-          onChange={(e) => setSearchTerm(e.target.value)}
-          style={{
-            width: "20%",
-          }}
+    <>
+      <div>
+        <BreadCrumb
+          items={[
+            {
+              label: `${role}`,
+              link: `/${role}`,
+            },
+            {
+              label: "user",
+              link: `/${role}/user`,
+            },
+          ]}
         />
-        <div>
-          <Link href="/super_admin/user/create">
-            <Button type="primary">Create User</Button>
-          </Link>
-          {(!!sortBy || !!sortOrder || !!searchTerm) && (
-            <Button
-              style={{ margin: "0px 5px" }}
-              type="primary"
-              onClick={resetFilters}
-            >
-              <ReloadOutlined />
-            </Button>
-          )}
-        </div>
-      </Actionbar>
+        <Actionbar title="User List">
+          <Input
+            size="large"
+            placeholder="Search"
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={{
+              width: "20%",
+            }}
+          />
+          <div>
+            <Link href="/super_admin/user/create">
+              <Button type="primary" className="bg-blue-500">
+                Create User
+              </Button>
+            </Link>
+            {(!!sortBy || !!sortOrder || !!searchTerm) && (
+              <Button
+                style={{ margin: "0px 5px" }}
+                type="primary"
+                className="bg-blue-500"
+                onClick={resetFilters}
+              >
+                <ReloadOutlined />
+              </Button>
+            )}
+          </div>
+        </Actionbar>
 
-      <ISTable
-        loading={isLoading}
-        columns={columns}
-        dataSource={admins}
-        pageSize={size}
-        totalPages={meta?.total}
-        showSizeChanger={true}
-        onPaginationChange={onPaginationChange}
-        onTableChange={onTableChange}
-        showPagination={true}
-      />
-    </div>
+        <ISTable
+          loading={isLoading}
+          columns={columns}
+          dataSource={admins}
+          pageSize={size}
+          totalPages={meta?.total}
+          showSizeChanger={true}
+          onPaginationChange={onPaginationChange}
+          onTableChange={onTableChange}
+          showPagination={true}
+        />
+      </div>
+      <ISModal
+        title="Delete User"
+        isOpen={open}
+        closeModal={() => setOpen(false)}
+        handleOk={() => handleDelete(userId)}
+      >
+        <p className="my-5">Are you sure you want to delete this user?</p>
+      </ISModal>
+    </>
   );
 };
 

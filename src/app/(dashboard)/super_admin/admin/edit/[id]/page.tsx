@@ -61,7 +61,7 @@ const AdminUpdatePage = ({ params }: IDProps) => {
         ]}
       />
 
-      <h1>Update Admin</h1>
+      <h1 className="text-4xl font-bold my-4">Update Admin</h1>
       <Form submitHandler={onSubmit} defaultValues={defaultValue}>
         <div
           style={{
@@ -145,7 +145,7 @@ const AdminUpdatePage = ({ params }: IDProps) => {
           </Row>
         </div>
 
-        <Button type="primary" htmlType="submit">
+        <Button className="bg-blue-500" type="primary" htmlType="submit">
           update
         </Button>
       </Form>

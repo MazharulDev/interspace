@@ -46,7 +46,7 @@ const UserCreatePage = () => {
         ]}
       />
 
-      <h1>Create User</h1>
+      <h1 className="text-4xl font-bold my-4">Create User</h1>
       <Form submitHandler={onSubmit} resolver={yupResolver(userSchema)}>
         <div
           style={{
@@ -124,7 +124,7 @@ const UserCreatePage = () => {
           </Row>
         </div>
 
-        <Button type="primary" htmlType="submit">
+        <Button className="bg-blue-500" type="primary" htmlType="submit">
           create
         </Button>
       </Form>

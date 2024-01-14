@@ -45,13 +45,7 @@ const SignUp = () => {
       </Col>
 
       <Col sm={12} md={8} lg={10} style={{ padding: "0 15px" }}>
-        <h1
-          style={{
-            margin: "15px 0px",
-          }}
-        >
-          Create your account
-        </h1>
+        <h1 className="text-4xl font-bold mb-4">Create your account</h1>
         <div>
           <Form submitHandler={onSubmit}>
             <div>
@@ -102,7 +96,7 @@ const SignUp = () => {
                 label="Password"
               />
             </div>
-            <Button type="primary" htmlType="submit">
+            <Button className="bg-blue-500" type="primary" htmlType="submit">
               Signup
             </Button>
           </Form>
