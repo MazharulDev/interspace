@@ -1,6 +1,7 @@
 "use client";
 
 import Footer from "@/components/ui/Footer";
+
 import Navbar from "@/components/ui/Navbar";
 import { isLoggedIn } from "@/services/auth.service";
 import { Layout, Row, Space, Spin } from "antd";

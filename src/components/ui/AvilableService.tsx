@@ -23,7 +23,7 @@ const AvilableService = () => {
     );
   }
   return (
-    <div className="max-w-[1200px] mx-auto min-h-[600px] relative overflow-hidden mb-20">
+    <div className="max-w-[1200px] mx-auto min-h-[600px] relative overflow-hidden mb-20 mt-20">
       <div className="text-center mb-10">
         <h1 className="text-3xl primary-text font-bold">
           Discover The Best Deals for Your Entertainment

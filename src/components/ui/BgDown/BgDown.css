@@ -1,0 +1,6 @@
+.bg-header-down {
+  background-image: url("../../../assets/bg-down.jpg");
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}

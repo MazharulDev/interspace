@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import "../../css/Navbar.css";
 import { getUserInfo } from "@/services/auth.service";
 import { useState } from "react";
 import Image from "next/image";
@@ -19,7 +18,7 @@ const Navbar = () => {
                 src="https://i.ibb.co/5nbgNyX/interspace.png"
                 height={49}
                 width={49}
-                alt="Dino HR Logo"
+                alt="Interspace Logo"
               />
             </Link>
           </div>
