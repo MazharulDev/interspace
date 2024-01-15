@@ -1,5 +1,5 @@
 "use client";
-import { Upload, message } from "antd";
+import { Upload } from "antd";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { getImgbbAPI } from "@/helpers/config/envConfig";
 import { useState } from "react";
@@ -17,7 +17,7 @@ type ImageUploadProps = {
 };
 
 const UploadImage = ({ name }: ImageUploadProps) => {
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
   const { setValue } = useFormContext();
 
   const imgbbApiKey = getImgbbAPI();
