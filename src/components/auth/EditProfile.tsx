@@ -30,7 +30,7 @@ const EditProfile = ({
         <BreadCrumb
           items={[
             {
-              label: `profile-${role}`,
+              label: `profile-${role}/edit`,
               link: `/profile`,
             },
           ]}

@@ -21,7 +21,7 @@ const UserUpdatePage = ({ params }: IDProps) => {
   const id = params?.id;
   const { data } = useUserByIdQuery(id);
 
-  const [updateAdminById] = useUpdateUserByIdMutation();
+  const [updateUserById] = useUpdateUserByIdMutation();
   const router = useRouter();
 
   const defaultValue = {
@@ -29,8 +29,13 @@ const UserUpdatePage = ({ params }: IDProps) => {
     phoneNumber: data?.phoneNumber || "",
   };
   const onSubmit = async (values: any) => {
+    const userData = {
+      name: values?.name,
+      phoneNumber: values?.phoneNumber,
+      role: "user",
+    };
     try {
-      const res = await updateAdminById({ id, body: values }).unwrap();
+      const res = await updateUserById({ id, body: userData }).unwrap();
       if (res?._id) {
         message.success("User Updated Successfully");
         router.push(`/${role}/user`);
@@ -58,7 +63,7 @@ const UserUpdatePage = ({ params }: IDProps) => {
         ]}
       />
 
-      <h1>Update User</h1>
+      <h1 className="text-4xl font-bold my-4">Update User</h1>
       <Form submitHandler={onSubmit} defaultValues={defaultValue}>
         <div
           style={{
@@ -111,7 +116,7 @@ const UserUpdatePage = ({ params }: IDProps) => {
           </Row>
         </div>
 
-        <Button type="primary" htmlType="submit">
+        <Button className="bg-blue-500" type="primary" htmlType="submit">
           update
         </Button>
       </Form>

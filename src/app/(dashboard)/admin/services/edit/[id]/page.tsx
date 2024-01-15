@@ -126,7 +126,7 @@ const ServiceUpdate = ({ params }: IDProps) => {
           </Row>
         </div>
 
-        <Button type="primary" htmlType="submit">
+        <Button className="bg-blue-500" type="primary" htmlType="submit">
           update
         </Button>
       </Form>

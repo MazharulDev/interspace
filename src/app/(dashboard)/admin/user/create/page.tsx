@@ -124,8 +124,8 @@ const UserCreatePage = () => {
           </Row>
         </div>
 
-        <Button type="primary" htmlType="submit">
-          create
+        <Button className="bg-blue-500" type="primary" htmlType="submit">
+          Create
         </Button>
       </Form>
     </div>

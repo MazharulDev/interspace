@@ -19,6 +19,7 @@ import {
   useDeleteServiceMutation,
   useServicesQuery,
 } from "@/redux/api/serviceApi";
+import ISModal from "@/components/ui/Modal/Modal";
 
 const ServicesPage = () => {
   const { role } = getUserInfo() as any;
@@ -29,6 +30,9 @@ const ServicesPage = () => {
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
+
+  const [serviceId, setServiceId] = useState<string>("");
+  const [open, setOpen] = useState<boolean>(false);
 
   query["limit"] = size;
   query["page"] = page;
@@ -48,8 +52,9 @@ const ServicesPage = () => {
   const handleDelete = async (id: string) => {
     const res: any = await deleteService(id).unwrap();
 
-    if (res?._id) {
+    if (res) {
       message.success("Service Deleted successfully");
+      setOpen(false);
     }
   };
 
@@ -85,7 +90,7 @@ const ServicesPage = () => {
         return (
           <>
             <Link href={`/${role}/services/view/${data}`}>
-              <Button type="primary">
+              <Button className="bg-blue-500" type="primary">
                 <EyeOutlined />
               </Button>
             </Link>
@@ -95,11 +100,19 @@ const ServicesPage = () => {
                   margin: "0px 5px",
                 }}
                 type="primary"
+                className="bg-blue-500"
               >
                 <EditOutlined />
               </Button>
             </Link>
-            <Button onClick={() => handleDelete(data)} type="primary" danger>
+            <Button
+              onClick={() => {
+                setOpen(true);
+                setServiceId(data);
+              }}
+              type="primary"
+              danger
+            >
               <DeleteOutlined />
             </Button>
           </>
@@ -124,56 +137,69 @@ const ServicesPage = () => {
     setSearchTerm("");
   };
   return (
-    <div>
-      <BreadCrumb
-        items={[
-          {
-            label: `${role}`,
-            link: `/${role}`,
-          },
-          {
-            label: "services",
-            link: `/${role}/services`,
-          },
-        ]}
-      />
-      <Actionbar title="Services List">
-        <Input
-          size="large"
-          placeholder="Search"
-          onChange={(e) => setSearchTerm(e.target.value)}
-          style={{
-            width: "20%",
-          }}
+    <>
+      <div>
+        <BreadCrumb
+          items={[
+            {
+              label: `${role}`,
+              link: `/${role}`,
+            },
+            {
+              label: "services",
+              link: `/${role}/services`,
+            },
+          ]}
         />
-        <div>
-          <Link href={`/${role}/services/create`}>
-            <Button type="primary">Create Service</Button>
-          </Link>
-          {(!!sortBy || !!sortOrder || !!searchTerm) && (
-            <Button
-              style={{ margin: "0px 5px" }}
-              type="primary"
-              onClick={resetFilters}
-            >
-              <ReloadOutlined />
-            </Button>
-          )}
-        </div>
-      </Actionbar>
+        <Actionbar title="Services List">
+          <Input
+            size="large"
+            placeholder="Search"
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={{
+              width: "20%",
+            }}
+          />
+          <div>
+            <Link href={`/${role}/services/create`}>
+              <Button className="bg-blue-500" type="primary">
+                Create Service
+              </Button>
+            </Link>
+            {(!!sortBy || !!sortOrder || !!searchTerm) && (
+              <Button
+                style={{ margin: "0px 5px" }}
+                type="primary"
+                onClick={resetFilters}
+                className="bg-blue-500"
+              >
+                <ReloadOutlined />
+              </Button>
+            )}
+          </div>
+        </Actionbar>
 
-      <ISTable
-        loading={isLoading}
-        columns={columns}
-        dataSource={admins}
-        pageSize={size}
-        totalPages={meta?.total}
-        showSizeChanger={true}
-        onPaginationChange={onPaginationChange}
-        onTableChange={onTableChange}
-        showPagination={true}
-      />
-    </div>
+        <ISTable
+          loading={isLoading}
+          columns={columns}
+          dataSource={admins}
+          pageSize={size}
+          totalPages={meta?.total}
+          showSizeChanger={true}
+          onPaginationChange={onPaginationChange}
+          onTableChange={onTableChange}
+          showPagination={true}
+        />
+      </div>
+      <ISModal
+        title="Delete Service"
+        isOpen={open}
+        closeModal={() => setOpen(false)}
+        handleOk={() => handleDelete(serviceId)}
+      >
+        <p className="my-5">Are you sure you want to delete this service?</p>
+      </ISModal>
+    </>
   );
 };
 

@@ -46,7 +46,7 @@ const ServiceCreatePage = () => {
         ]}
       />
 
-      <h1>Create Service</h1>
+      <h1 className="text-4xl font-bold my-4">Create Service</h1>
       <Form submitHandler={onSubmit} resolver={yupResolver(serviceSchema)}>
         <div
           style={{
@@ -110,8 +110,8 @@ const ServiceCreatePage = () => {
           </Row>
         </div>
 
-        <Button type="primary" htmlType="submit">
-          create
+        <Button className="bg-blue-500" type="primary" htmlType="submit">
+          Create
         </Button>
       </Form>
     </div>
