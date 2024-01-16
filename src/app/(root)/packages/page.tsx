@@ -87,9 +87,7 @@ const PackagesPage = () => {
       <div style={{ margin: "0 2rem" }}>
         <Row justify="space-around" style={{ padding: "5rem 0" }}>
           <Col sm={12} md={16} lg={4}>
-            <h1 style={{ textAlign: "center", marginBottom: "2rem" }}>
-              Filter
-            </h1>
+            <h1 className="text-4xl font-bold my-4">Filter</h1>
             <label>Search</label>
             <Input
               size="large"
@@ -119,13 +117,11 @@ const PackagesPage = () => {
             </Button>
           </Col>
 
-          <Col sm={12} md={16} lg={18}>
-            <h1 style={{ textAlign: "center", marginBottom: "2rem" }}>
-              Service
-            </h1>
-            <Row justify="center">
+          <div>
+            <h1 className="text-4xl font-bold my-4">Service</h1>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {data?.services?.map((service) => (
-                <Col key={service._id} sm={12} md={12} lg={8}>
+                <div key={service._id}>
                   <div>
                     <ServiceCard
                       packageName={service?.title}
@@ -134,10 +130,10 @@ const PackagesPage = () => {
                       id={service?._id}
                     />
                   </div>
-                </Col>
+                </div>
               ))}
-            </Row>
-          </Col>
+            </div>
+          </div>
         </Row>
       </div>
     </div>

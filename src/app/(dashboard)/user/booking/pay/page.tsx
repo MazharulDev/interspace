@@ -58,7 +58,7 @@ const PaymentPage = () => {
           },
         ]}
       />
-      <h1>Payment</h1>
+      <h1 className="text-4xl font-bold my-4">Payment</h1>
       <Form submitHandler={onSubmit} defaultValues={defaultValue}>
         <div
           style={{
@@ -112,7 +112,7 @@ const PaymentPage = () => {
           </Row>
         </div>
 
-        <Button type="primary" htmlType="submit">
+        <Button className="bg-blue-500" type="primary" htmlType="submit">
           Submit
         </Button>
       </Form>

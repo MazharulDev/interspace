@@ -4,7 +4,7 @@ import BreadCrumb from "@/components/ui/Breadcrumb";
 import { useFaqByIdQuery } from "@/redux/api/faqApi";
 import { useServiceByIdQuery } from "@/redux/api/serviceApi";
 import { getUserInfo } from "@/services/auth.service";
-import { Col, Collapse, Row } from "antd";
+import { Col, Collapse, Row, Spin } from "antd";
 type IDProps = {
   params: any;
 };
@@ -12,7 +12,7 @@ type IDProps = {
 const ViewFaq = ({ params }: IDProps) => {
   const { role } = getUserInfo() as any;
   const id = params?.id;
-  const { data } = useFaqByIdQuery(id);
+  const { data, isLoading } = useFaqByIdQuery(id);
   const generateItemsFromData = (data: any) => [
     {
       key: "1",
@@ -22,6 +22,13 @@ const ViewFaq = ({ params }: IDProps) => {
   ];
 
   const items = generateItemsFromData(data);
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center">
+        <Spin />
+      </div>
+    );
+  }
   return (
     <div>
       <BreadCrumb

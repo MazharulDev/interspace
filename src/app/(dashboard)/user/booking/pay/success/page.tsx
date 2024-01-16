@@ -10,7 +10,6 @@ const PaymentSuccessPage = () => {
   const searchParams = useSearchParams();
   const id = searchParams.get("transactionId");
   const { data } = usePaymentByTransQuery(id);
-  console.log(data);
   return (
     <div>
       <BreadCrumb
@@ -34,7 +33,7 @@ const PaymentSuccessPage = () => {
         ]}
       />
       <div style={{ textAlign: "center" }}>
-        <h1 style={{ marginTop: "3rem" }}>Congtratulations</h1>
+        <h1 className="text-xl font-bold mt-5">Congtratulations</h1>
         <h3 style={{ margin: "2rem 0" }}>
           Your payment of Tk <span>{data?.amount}</span> for the month of{" "}
           <span>{data?.month}</span> <span>{data?.year}</span> has been received

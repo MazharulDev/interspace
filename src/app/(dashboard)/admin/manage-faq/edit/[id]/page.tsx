@@ -55,7 +55,7 @@ const FaqUpdate = ({ params }: IDProps) => {
         ]}
       />
 
-      <h1>Update FAQ</h1>
+      <h1 className="text-4xl font-bold my-4">Update FAQ</h1>
       <Form submitHandler={onSubmit} defaultValues={defaultValue}>
         <div
           style={{
@@ -107,7 +107,7 @@ const FaqUpdate = ({ params }: IDProps) => {
           </Row>
         </div>
 
-        <Button type="primary" htmlType="submit">
+        <Button className="bg-blue-500" type="primary" htmlType="submit">
           update
         </Button>
       </Form>

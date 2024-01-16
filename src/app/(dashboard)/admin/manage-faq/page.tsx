@@ -10,8 +10,8 @@ import ISTable from "@/components/ui/ISTable";
 import BreadCrumb from "@/components/ui/Breadcrumb";
 import Actionbar from "@/components/ui/ActionBar";
 import { getUserInfo } from "@/services/auth.service";
-import { useDeleteServiceMutation } from "@/redux/api/serviceApi";
 import { useDeletefaqMutation, useFaqsQuery } from "@/redux/api/faqApi";
+import ISModal from "@/components/ui/Modal/Modal";
 
 const ManageFaq = () => {
   const { role } = getUserInfo() as any;
@@ -22,6 +22,9 @@ const ManageFaq = () => {
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
+
+  const [faqId, setFaqId] = useState<string>("");
+  const [open, setOpen] = useState<boolean>(false);
 
   query["limit"] = size;
   query["page"] = page;
@@ -41,8 +44,9 @@ const ManageFaq = () => {
   const handleDelete = async (id: string) => {
     const res: any = await deletefaq(id).unwrap();
 
-    if (res?._id) {
+    if (res) {
       message.success("FAQ Deleted successfully");
+      setOpen(false);
     }
   };
 
@@ -71,21 +75,23 @@ const ManageFaq = () => {
         return (
           <>
             <Link href={`/${role}/manage-faq/view/${data}`}>
-              <Button type="primary">
+              <Button className="bg-blue-500" type="primary">
                 <EyeOutlined />
               </Button>
             </Link>
             <Link href={`/${role}/manage-faq/edit/${data}`}>
-              <Button
-                style={{
-                  margin: "0px 5px",
-                }}
-                type="primary"
-              >
+              <Button type="primary" className="bg-blue-500 my-2">
                 <EditOutlined />
               </Button>
             </Link>
-            <Button onClick={() => handleDelete(data)} type="primary" danger>
+            <Button
+              onClick={() => {
+                setOpen(true);
+                setFaqId(data);
+              }}
+              type="primary"
+              danger
+            >
               <DeleteOutlined />
             </Button>
           </>
@@ -95,37 +101,49 @@ const ManageFaq = () => {
   ];
 
   return (
-    <div>
-      <BreadCrumb
-        items={[
-          {
-            label: `${role}`,
-            link: `/${role}`,
-          },
-          {
-            label: "manage-faq",
-            link: `/${role}/manage-faq`,
-          },
-        ]}
-      />
-      <Actionbar title="FAQ List">
-        <Input
-          size="large"
-          placeholder="Search"
-          onChange={(e) => setSearchTerm(e.target.value)}
-          style={{
-            width: "20%",
-          }}
+    <>
+      <div>
+        <BreadCrumb
+          items={[
+            {
+              label: `${role}`,
+              link: `/${role}`,
+            },
+            {
+              label: "manage-faq",
+              link: `/${role}/manage-faq`,
+            },
+          ]}
         />
-        <div>
-          <Link href={`/${role}/manage-faq/create`}>
-            <Button type="primary">Create FAQ</Button>
-          </Link>
-        </div>
-      </Actionbar>
+        <Actionbar title="FAQ List">
+          <Input
+            size="large"
+            placeholder="Search"
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={{
+              width: "20%",
+            }}
+          />
+          <div>
+            <Link href={`/${role}/manage-faq/create`}>
+              <Button className="bg-blue-500" type="primary">
+                Create FAQ
+              </Button>
+            </Link>
+          </div>
+        </Actionbar>
 
-      <ISTable columns={columns} dataSource={data} showSizeChanger={true} />
-    </div>
+        <ISTable columns={columns} dataSource={data} showSizeChanger={true} />
+      </div>
+      <ISModal
+        title="Delete FAQ"
+        isOpen={open}
+        closeModal={() => setOpen(false)}
+        handleOk={() => handleDelete(faqId)}
+      >
+        <p className="my-5">Are you sure you want to publish this review?</p>
+      </ISModal>
+    </>
   );
 };
 

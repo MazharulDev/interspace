@@ -14,6 +14,7 @@ import {
   useBookingByEmailQuery,
   useDeleteBookingMutation,
 } from "@/redux/api/bookingApi";
+import ISModal from "@/components/ui/Modal/Modal";
 
 const MyBookingConnection = () => {
   const { role, userId } = getUserInfo() as any;
@@ -24,6 +25,9 @@ const MyBookingConnection = () => {
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
+
+  const [bookingId, setBookingId] = useState<string>("");
+  const [open, setOpen] = useState<boolean>(false);
 
   query["limit"] = size;
   query["page"] = page;
@@ -43,8 +47,9 @@ const MyBookingConnection = () => {
   const handleDelete = async (id: string) => {
     const res: any = await deleteBooking(id).unwrap();
 
-    if (res?._id) {
+    if (res) {
       message.success("Booked canceled");
+      setOpen(false);
     }
   };
 
@@ -81,7 +86,10 @@ const MyBookingConnection = () => {
               <div>
                 <Button
                   style={{ marginRight: "5px" }}
-                  onClick={() => handleDelete(data._id)}
+                  onClick={() => {
+                    setOpen(true);
+                    setBookingId(data?._id);
+                  }}
                   type="primary"
                   danger
                 >
@@ -94,7 +102,9 @@ const MyBookingConnection = () => {
             )}
             {data?.status === "accepted" && (
               <Link href={"/user/booking/pay"}>
-                <Button type="primary">Pay</Button>
+                <Button className="bg-blue-500" type="primary">
+                  Pay
+                </Button>
               </Link>
             )}
           </>
@@ -119,52 +129,62 @@ const MyBookingConnection = () => {
     setSearchTerm("");
   };
   return (
-    <div>
-      <BreadCrumb
-        items={[
-          {
-            label: `${role}`,
-            link: `/${role}`,
-          },
-          {
-            label: "booking",
-            link: `/${role}/booking`,
-          },
-        ]}
-      />
-      <Actionbar title="Booking List">
-        <Input
-          size="large"
-          placeholder="Search"
-          onChange={(e) => setSearchTerm(e.target.value)}
-          style={{
-            width: "20%",
-          }}
+    <>
+      <div>
+        <BreadCrumb
+          items={[
+            {
+              label: `${role}`,
+              link: `/${role}`,
+            },
+            {
+              label: "booking",
+              link: `/${role}/booking`,
+            },
+          ]}
         />
-        <div>
-          {(!!sortBy || !!sortOrder || !!searchTerm) && (
-            <Button
-              style={{ margin: "0px 5px" }}
-              type="primary"
-              onClick={resetFilters}
-            >
-              <ReloadOutlined />
-            </Button>
-          )}
-        </div>
-      </Actionbar>
+        <Actionbar title="Booking List">
+          <Input
+            size="large"
+            placeholder="Search"
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={{
+              width: "20%",
+            }}
+          />
+          <div>
+            {(!!sortBy || !!sortOrder || !!searchTerm) && (
+              <Button
+                style={{ margin: "0px 5px" }}
+                type="primary"
+                onClick={resetFilters}
+              >
+                <ReloadOutlined />
+              </Button>
+            )}
+          </div>
+        </Actionbar>
 
-      <ISTable
-        loading={isLoading}
-        columns={columns}
-        dataSource={bookings}
-        pageSize={size}
-        showSizeChanger={true}
-        onPaginationChange={onPaginationChange}
-        onTableChange={onTableChange}
-        showPagination={true}
-      />
-    </div>
+        <ISTable
+          loading={isLoading}
+          columns={columns}
+          dataSource={bookings}
+          pageSize={size}
+          showSizeChanger={true}
+          onPaginationChange={onPaginationChange}
+          onTableChange={onTableChange}
+          showPagination={true}
+        />
+      </div>
+      <ISModal
+        title="Cancel Booking"
+        isOpen={open}
+        closeModal={() => setOpen(false)}
+        handleOk={() => handleDelete(bookingId)}
+      >
+        <p className="my-5">Are you sure you want to Cencel this Booking?</p>
+      </ISModal>
+    </>
   );
 };
 

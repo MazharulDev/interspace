@@ -16,13 +16,10 @@ import BreadCrumb from "@/components/ui/Breadcrumb";
 import Actionbar from "@/components/ui/ActionBar";
 import { getUserInfo } from "@/services/auth.service";
 import {
-  useDeleteServiceMutation,
-  useServicesQuery,
-} from "@/redux/api/serviceApi";
-import {
   useAllUserReviewQuery,
   useUpdateUserReviewMutation,
 } from "@/redux/api/userReviewApi";
+import ISModal from "@/components/ui/Modal/Modal";
 
 const ManageReview = () => {
   const { role } = getUserInfo() as any;
@@ -33,6 +30,9 @@ const ManageReview = () => {
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
+
+  const [reviewId, setReviewId] = useState<string>("");
+  const [open, setOpen] = useState<boolean>(false);
 
   query["limit"] = size;
   query["page"] = page;
@@ -54,7 +54,10 @@ const ManageReview = () => {
       id,
       body: { status: "publish" },
     }).unwrap();
-    console.log(res);
+    if (res) {
+      message.success("Review published");
+      setOpen(false);
+    }
   };
 
   const admins = data?.services;
@@ -83,12 +86,19 @@ const ManageReview = () => {
               href={`/${role}/manage-review/view/${data._id}`}
               style={{ margin: "0 5px" }}
             >
-              <Button type="primary">
+              <Button className="bg-blue-500" type="primary">
                 <EyeOutlined />
               </Button>
             </Link>
             {data.status === "pending" && (
-              <Button onClick={() => handlePublish(data._id)} type="primary">
+              <Button
+                className="bg-blue-500"
+                onClick={() => {
+                  setOpen(true);
+                  setReviewId(data?._id);
+                }}
+                type="primary"
+              >
                 Publish
               </Button>
             )}
@@ -114,53 +124,63 @@ const ManageReview = () => {
     setSearchTerm("");
   };
   return (
-    <div>
-      <BreadCrumb
-        items={[
-          {
-            label: `${role}`,
-            link: `/${role}`,
-          },
-          {
-            label: "manage-review",
-            link: `/${role}/manage-review`,
-          },
-        ]}
-      />
-      <Actionbar title="Review List">
-        <Input
-          size="large"
-          placeholder="Search"
-          onChange={(e) => setSearchTerm(e.target.value)}
-          style={{
-            width: "20%",
-          }}
+    <>
+      <div>
+        <BreadCrumb
+          items={[
+            {
+              label: `${role}`,
+              link: `/${role}`,
+            },
+            {
+              label: "manage-review",
+              link: `/${role}/manage-review`,
+            },
+          ]}
         />
-        <div>
-          {(!!sortBy || !!sortOrder || !!searchTerm) && (
-            <Button
-              style={{ margin: "0px 5px" }}
-              type="primary"
-              onClick={resetFilters}
-            >
-              <ReloadOutlined />
-            </Button>
-          )}
-        </div>
-      </Actionbar>
+        <Actionbar title="Review List">
+          <Input
+            size="large"
+            placeholder="Search"
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={{
+              width: "20%",
+            }}
+          />
+          <div>
+            {(!!sortBy || !!sortOrder || !!searchTerm) && (
+              <Button
+                style={{ margin: "0px 5px" }}
+                type="primary"
+                onClick={resetFilters}
+              >
+                <ReloadOutlined />
+              </Button>
+            )}
+          </div>
+        </Actionbar>
 
-      <ISTable
-        loading={isLoading}
-        columns={columns}
-        dataSource={admins}
-        pageSize={size}
-        totalPages={meta?.total}
-        showSizeChanger={true}
-        onPaginationChange={onPaginationChange}
-        onTableChange={onTableChange}
-        showPagination={true}
-      />
-    </div>
+        <ISTable
+          loading={isLoading}
+          columns={columns}
+          dataSource={admins}
+          pageSize={size}
+          totalPages={meta?.total}
+          showSizeChanger={true}
+          onPaginationChange={onPaginationChange}
+          onTableChange={onTableChange}
+          showPagination={true}
+        />
+      </div>
+      <ISModal
+        title="Publish Review"
+        isOpen={open}
+        closeModal={() => setOpen(false)}
+        handleOk={() => handlePublish(reviewId)}
+      >
+        <p className="my-5">Are you sure you want to publish this review?</p>
+      </ISModal>
+    </>
   );
 };
 

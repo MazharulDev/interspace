@@ -37,7 +37,12 @@ const ReviewSection = ({ id }: IProps) => {
         <div>
           <FormTextArea name="text" label="Review" placeholder="Enter review" />
         </div>
-        <Button type="primary" htmlType="submit" style={{ margin: "10px 0" }}>
+        <Button
+          className="bg-blue-500"
+          type="primary"
+          htmlType="submit"
+          style={{ margin: "10px 0" }}
+        >
           Submit
         </Button>
       </Form>

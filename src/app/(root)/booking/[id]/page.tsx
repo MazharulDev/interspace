@@ -53,7 +53,7 @@ const BookingPage = ({ params }: IDProps) => {
         defaultValue={defaultValue}
       />
       <div>
-        <h1 style={{ textAlign: "center" }}>Review</h1>
+        <h1 className="text-center text-4xl font-bold my-4">Review</h1>
         <ReviewSection id={id} />
         <ViewReview reviewData={packageData?.reviews} />
       </div>

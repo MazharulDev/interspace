@@ -6,7 +6,6 @@ import Link from "next/link";
 
 const PaymentFailPage = () => {
   const { role } = getUserInfo() as any;
-  console.log(role);
   return (
     <div>
       <BreadCrumb
@@ -26,7 +25,7 @@ const PaymentFailPage = () => {
         ]}
       />
       <div style={{ textAlign: "center" }}>
-        <h1 style={{ marginTop: "3rem" }}>Failed</h1>
+        <h1 className="text-xl font-bold mt-5">Failed</h1>
         <h3 style={{ margin: "2rem 0", color: "red" }}>Someting weng wrong</h3>
       </div>
       <div

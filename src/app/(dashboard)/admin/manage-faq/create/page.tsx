@@ -46,7 +46,7 @@ const FaqCreatePage = () => {
         ]}
       />
 
-      <h1>Create FAQ</h1>
+      <h1 className="text-4xl font-bold my-4">Create FAQ</h1>
       <Form submitHandler={onSubmit} resolver={yupResolver(faqSchema)}>
         <div
           style={{
@@ -96,7 +96,7 @@ const FaqCreatePage = () => {
           </Row>
         </div>
 
-        <Button type="primary" htmlType="submit">
+        <Button className="bg-blue-500" type="primary" htmlType="submit">
           create
         </Button>
       </Form>

@@ -16,23 +16,11 @@ const BookingForm = ({
   defaultValue,
 }: any) => {
   return (
-    <div>
-      <Row
-        justify="center"
-        align="middle"
-        style={{
-          minHeight: "100vh",
-        }}
-      >
-        <Col sm={12} md={8} lg={10}>
-          <h1
-            style={{
-              margin: "15px 0px",
-            }}
-          >
-            Need New Connection?
-          </h1>
-          <div style={{ marginRight: "2rem" }}>
+    <div className="max-w-[1200px] mx-auto min-h-[600px] relative overflow-hidden px-5 md:px-0 mt-10 md:mt-0">
+      <div className="flex flex-col-reverse justify-center py-6 mx-auto sm:py-12 lg:py-[100px] lg:flex-row lg:justify-between">
+        <div>
+          <h1 className="text-4xl font-bold my-4">Need New Connection?</h1>
+          <div>
             <Form
               submitHandler={onSubmit}
               defaultValues={defaultValue}
@@ -94,19 +82,19 @@ const BookingForm = ({
                   disabledInput="true"
                 />
               </div>
-              <Button type="primary" htmlType="submit">
+              <Button className="bg-blue-500" type="primary" htmlType="submit">
                 Submit
               </Button>
             </Form>
           </div>
-        </Col>
-        <Col sm={12} md={16} lg={6}>
+        </div>
+        <div>
           <div>
-            <h1>24/7 Support Service</h1>
+            <h1 className="text-4xl font-bold my-4">24/7 Support Service</h1>
             <Image src={bookingImg} width={500} alt="booking image" />
           </div>
-        </Col>
-      </Row>
+        </div>
+      </div>
     </div>
   );
 };
