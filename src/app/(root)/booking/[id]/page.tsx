@@ -6,8 +6,10 @@ import ViewReview from "@/components/ui/ViewReview";
 import { useCreateBookMutation } from "@/redux/api/bookingApi";
 import { useServiceByIdQuery } from "@/redux/api/serviceApi";
 import { useUserQuery } from "@/redux/api/userApi";
-import { getUserInfo } from "@/services/auth.service";
+import { getUserInfo, isLoggedIn } from "@/services/auth.service";
 import { message } from "antd";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { SubmitHandler } from "react-hook-form";
 
 type IDProps = {
@@ -24,9 +26,19 @@ type FormValues = {
 const BookingPage = ({ params }: IDProps) => {
   const { userId } = getUserInfo() as any;
   const id = params?.id;
-  const { data: packageData, isLoading } = useServiceByIdQuery(id);
+  const { data: packageData } = useServiceByIdQuery(id);
   const { data: userData } = useUserQuery(userId);
   const [createBook] = useCreateBookMutation();
+  const userLoggedIn = isLoggedIn();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!userLoggedIn) {
+      router.push("/login");
+    }
+    setIsLoading(true);
+  }, [router, userLoggedIn]);
   //   const router=useRouter()
 
   const defaultValue = {

@@ -2,7 +2,7 @@ import { Button, Divider } from "antd";
 import { GiftOutlined } from "@ant-design/icons";
 import Link from "next/link";
 
-const ServiceCard = ({ packageName, price, mb, id }: any) => {
+const ServiceCard = ({ packageName, price, mb, id, role }: any) => {
   return (
     <div className="w-96 bg-white shadow-xl hover:scale-105  p-5 rounded-lg duration-100">
       <h2 className="font-bold text-4xl primary-text font-[Lemon]">
@@ -40,9 +40,11 @@ const ServiceCard = ({ packageName, price, mb, id }: any) => {
           <p>No Security Deposit Required (for any package)</p>
         </div>
       </div>
-      <Link href={`/booking/${id}`}>
-        <Button style={{ margin: "2rem 0" }}>Get It Now</Button>
-      </Link>
+      {role === "user" && (
+        <Link href={`/booking/${id}`}>
+          <Button style={{ margin: "2rem 0" }}>Get It Now</Button>
+        </Link>
+      )}
     </div>
   );
 };

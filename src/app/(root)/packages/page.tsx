@@ -2,6 +2,7 @@
 import ServiceCard from "@/components/card/ServiceCard";
 import { useAllServicesQuery, useServicesQuery } from "@/redux/api/serviceApi";
 import { useDebounced } from "@/redux/hooks";
+import { getUserInfo } from "@/services/auth.service";
 import { IService } from "@/types";
 import {
   Button,
@@ -17,6 +18,7 @@ import {
 import { useState } from "react";
 
 const PackagesPage = () => {
+  const { role } = getUserInfo() as any;
   const query: Record<string, any> = {};
   const [searchResult, setSearchResult] = useState<string>("");
   const [packageSelect, setPackageSelect] = useState<any>(null);
@@ -128,6 +130,7 @@ const PackagesPage = () => {
                       price={service?.price}
                       mb={service?.speed}
                       id={service?._id}
+                      role={role}
                     />
                   </div>
                 </div>

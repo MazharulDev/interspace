@@ -4,8 +4,10 @@ import ServiceCard from "../card/ServiceCard";
 import { useServicesQuery } from "@/redux/api/serviceApi";
 import Link from "next/link";
 import ButtonMain from "./Button";
+import { getUserInfo } from "@/services/auth.service";
 
 const AvilableService = () => {
+  const { role } = getUserInfo() as any;
   const { data, isLoading } = useServicesQuery({});
   if (isLoading) {
     return (
@@ -42,6 +44,7 @@ const AvilableService = () => {
                   price={service?.price}
                   mb={service?.speed}
                   id={service?._id}
+                  role={role}
                 />
               </div>
             </Col>
